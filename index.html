@@ -1,0 +1,1702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eat-N-Treat · Artisan Cake House · Ganpatipule</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Outfit:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,300;1,500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --dark:   #130804;
+  --dark2:  #231009;
+  --dark3:  #341610;
+  --cream:  #FBF6EC;
+  --cream2: #F5EDD8;
+  --gold:   #C9983A;
+  --gold2:  #F0C660;
+  --gold3:  #FFE29A;
+  --blush:  #E8A0A0;
+  --rust:   #8B3A2A;
+  --white:  #FFFFFF;
+  --text:   #1A0A06;
+  --muted:  #7A5444;
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+
+body {
+  font-family:'Outfit', sans-serif;
+  background:var(--cream);
+  color:var(--text);
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* ── CUSTOM CURSOR ── */
+#cursor {
+  position:fixed; top:0; left:0; z-index:9999;
+  pointer-events:none;
+  mix-blend-mode:difference;
+}
+#cursor-dot {
+  width:8px; height:8px; background:#fff;
+  border-radius:50%;
+  position:absolute;
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s;
+}
+#cursor-ring {
+  width:36px; height:36px;
+  border:1.5px solid rgba(255,255,255,0.6);
+  border-radius:50%;
+  position:absolute;
+  transform:translate(-50%,-50%);
+  transition:all .12s ease;
+}
+body.hovering #cursor-dot { width:12px; height:12px; }
+body.hovering #cursor-ring { width:56px; height:56px; border-color:var(--gold2); }
+
+/* ── FLOATING PARTICLES ── */
+#particles { position:fixed; inset:0; z-index:0; pointer-events:none; }
+
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:500;
+  display:flex; align-items:center; justify-content:space-between;
+  padding:20px 60px;
+  transition:all .4s ease;
+}
+nav.solid {
+  background:rgba(19,8,4,0.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  padding:14px 60px;
+}
+.nav-logo {
+  font-family:'Playfair Display',serif;
+  font-weight:900; font-size:1.4rem;
+  color:#fff; text-decoration:none; letter-spacing:.04em;
+}
+.nav-logo span { color:var(--gold2); }
+.nav-links { display:flex; gap:38px; list-style:none; }
+.nav-links a {
+  color:rgba(255,255,255,.65); text-decoration:none;
+  font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; font-weight:500;
+  position:relative; padding-bottom:3px;
+  transition:color .2s;
+}
+.nav-links a::after {
+  content:''; position:absolute; bottom:0; left:0;
+  width:0; height:1.5px; background:var(--gold2);
+  transition:width .3s ease;
+}
+.nav-links a:hover { color:#fff; }
+.nav-links a:hover::after { width:100%; }
+.nav-cta {
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:var(--dark); padding:10px 24px; border-radius:50px;
+  font-size:.78rem; font-weight:700; text-decoration:none;
+  letter-spacing:.06em;
+  transition:transform .2s, box-shadow .2s;
+  box-shadow:0 4px 20px rgba(201,152,58,.3);
+}
+.nav-cta:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(201,152,58,.45); }
+
+/* ── HERO ── */
+.hero {
+  min-height:100vh;
+  background:radial-gradient(ellipse at 30% 60%, #3D1A0A 0%, #1A0805 45%, #0D0403 100%);
+  position:relative; overflow:hidden;
+  display:flex; align-items:center;
+}
+.hero-bg-text {
+  position:absolute; bottom:-40px; left:-20px;
+  font-family:'Playfair Display',serif;
+  font-size:22vw; font-weight:900;
+  color:rgba(255,255,255,.025);
+  white-space:nowrap; pointer-events:none;
+  line-height:1; z-index:1;
+  letter-spacing:-.04em;
+}
+.hero-glow {
+  position:absolute; top:20%; left:50%;
+  transform:translateX(-50%);
+  width:700px; height:500px;
+  background:radial-gradient(ellipse, rgba(201,152,58,.12) 0%, transparent 70%);
+  pointer-events:none; z-index:1;
+}
+.hero-inner {
+  width:100%; max-width:1320px; margin:0 auto;
+  padding:130px 60px 80px;
+  display:grid;
+  grid-template-columns:1fr 1.05fr 1fr;
+  gap:40px;
+  align-items:center;
+  position:relative; z-index:2;
+}
+
+/* Hero Left */
+.hero-left { display:flex; flex-direction:column; gap:22px; }
+.hero-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(201,152,58,.12);
+  border:1px solid rgba(201,152,58,.3);
+  color:var(--gold2); font-size:.68rem; letter-spacing:.16em;
+  text-transform:uppercase; font-weight:600;
+  padding:7px 16px; border-radius:50px; width:fit-content;
+}
+.badge-dot { width:6px; height:6px; border-radius:50%; background:var(--gold2); animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.5)} }
+
+.hero-quote {
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic; font-size:1.08rem;
+  color:rgba(255,255,255,.5); line-height:1.8;
+  border-left:2px solid var(--gold);
+  padding-left:16px;
+}
+.hero-thumbs { display:flex; flex-direction:column; gap:10px; }
+.hero-thumb {
+  display:flex; align-items:center; gap:14px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:14px; padding:13px 16px;
+  transition:all .25s ease;
+  transform-style:preserve-3d;
+}
+.hero-thumb:hover {
+  background:rgba(255,255,255,.09);
+  border-color:rgba(201,152,58,.3);
+  transform:translateX(6px);
+}
+.thumb-icon { font-size:1.5rem; }
+.thumb-text strong { display:block; color:#fff; font-size:.8rem; font-weight:600; }
+.thumb-text span { color:rgba(255,255,255,.4); font-size:.7rem; }
+
+/* Hero Center */
+.hero-center { display:flex; flex-direction:column; align-items:center; gap:20px; }
+.hero-h1 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3rem,5.2vw,5.6rem);
+  font-weight:900; color:#fff;
+  text-align:center; line-height:1.04;
+  letter-spacing:-.02em;
+}
+.hero-h1 em { font-style:italic; color:var(--gold2); }
+.hero-h1 .line2 {
+  display:block;
+  -webkit-text-stroke:1.5px rgba(255,255,255,.3);
+  color:transparent;
+}
+.cake-3d-wrap {
+  width:320px; height:320px;
+  perspective:800px;
+  position:relative;
+}
+.cake-sphere {
+  width:100%; height:100%;
+  border-radius:50%;
+  overflow:hidden;
+  border:2.5px solid rgba(201,152,58,.25);
+  box-shadow:
+    0 0 0 8px rgba(201,152,58,.06),
+    0 0 0 16px rgba(201,152,58,.03),
+    0 30px 80px rgba(0,0,0,.6),
+    inset 0 0 40px rgba(0,0,0,.3);
+  transform-style:preserve-3d;
+  transition:transform .1s ease;
+  animation:float3d 7s ease-in-out infinite;
+}
+@keyframes float3d {
+  0%,100%{transform:translateY(0) rotateX(0deg) rotateY(0deg)}
+  25%{transform:translateY(-14px) rotateX(3deg) rotateY(4deg)}
+  50%{transform:translateY(-8px) rotateX(-2deg) rotateY(-3deg)}
+  75%{transform:translateY(-18px) rotateX(2deg) rotateY(5deg)}
+}
+.cake-sphere img { width:100%; height:100%; object-fit:cover; transition:transform 8s ease; }
+.cake-sphere:hover img { transform:scale(1.08); }
+.cake-ring {
+  position:absolute; inset:-12px;
+  border-radius:50%;
+  border:1px dashed rgba(201,152,58,.2);
+  animation:spin 20s linear infinite;
+}
+.cake-ring2 {
+  position:absolute; inset:-24px;
+  border-radius:50%;
+  border:1px solid rgba(201,152,58,.08);
+  animation:spin 35s linear infinite reverse;
+}
+@keyframes spin { to{transform:rotate(360deg)} }
+.cake-dot {
+  position:absolute;
+  width:10px; height:10px;
+  border-radius:50%;
+  background:var(--gold2);
+  border:2px solid var(--dark);
+  box-shadow:0 0 12px var(--gold2);
+  cursor:pointer;
+  animation:dotpulse 3s ease-in-out infinite;
+}
+@keyframes dotpulse { 0%,100%{box-shadow:0 0 8px var(--gold2)} 50%{box-shadow:0 0 20px var(--gold2),0 0 40px rgba(240,198,96,.3)} }
+.cake-dot:nth-child(3) { top:18%; right:5%; }
+.cake-dot:nth-child(4) { bottom:20%; left:4%; }
+.cake-tooltip {
+  position:absolute;
+  background:rgba(19,8,4,.9);
+  backdrop-filter:blur(8px);
+  border:1px solid rgba(201,152,58,.3);
+  border-radius:10px;
+  padding:8px 14px;
+  white-space:nowrap;
+  color:#fff; font-size:.72rem; font-weight:500;
+  opacity:0; pointer-events:none;
+  transition:opacity .2s;
+  z-index:10;
+}
+.cake-dot:hover .cake-tooltip { opacity:1; }
+.cake-dot:nth-child(3) .cake-tooltip { top:-36px; right:18px; }
+.cake-dot:nth-child(4) .cake-tooltip { bottom:-36px; left:18px; }
+
+.hero-rating {
+  display:flex; align-items:center; gap:10px;
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.08);
+  padding:10px 20px; border-radius:50px;
+  font-size:.75rem; color:rgba(255,255,255,.6);
+}
+.stars { color:var(--gold2); letter-spacing:2px; }
+
+/* Hero Right */
+.hero-right { display:flex; flex-direction:column; gap:16px; }
+.glass-card {
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:22px; padding:28px 26px;
+  backdrop-filter:blur(12px);
+  transition:transform .3s ease, box-shadow .3s ease;
+  transform-style:preserve-3d;
+}
+.glass-card:hover {
+  transform:translateY(-4px) rotateX(2deg);
+  box-shadow:0 24px 60px rgba(0,0,0,.4), 0 0 0 1px rgba(201,152,58,.2);
+}
+.product-label { font-size:.65rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); font-weight:600; margin-bottom:8px; }
+.product-name { font-family:'Playfair Display',serif; font-size:1.5rem; color:#fff; font-weight:700; margin-bottom:10px; }
+.product-desc { font-size:.78rem; color:rgba(255,255,255,.45); line-height:1.65; margin-bottom:16px; }
+.product-meta { font-size:.68rem; color:rgba(255,255,255,.28); margin-bottom:20px; }
+
+.btn-gold {
+  display:inline-flex; align-items:center; gap:8px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:var(--dark); padding:12px 26px; border-radius:50px;
+  font-size:.8rem; font-weight:700; text-decoration:none;
+  letter-spacing:.06em;
+  transition:transform .2s, box-shadow .2s;
+  box-shadow:0 4px 20px rgba(201,152,58,.3);
+  width:fit-content; border:none; cursor:none;
+}
+.btn-gold:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(201,152,58,.5); }
+.btn-gold::after { content:'→'; transition:transform .2s; }
+.btn-gold:hover::after { transform:translateX(4px); }
+
+.info-pills { display:flex; gap:10px; }
+.info-pill {
+  flex:1; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.07);
+  border-radius:14px; padding:14px 10px; text-align:center;
+  transition:background .2s;
+}
+.info-pill:hover { background:rgba(201,152,58,.08); border-color:rgba(201,152,58,.2); }
+.info-pill strong { display:block; color:var(--gold2); font-size:.95rem; font-family:'Playfair Display',serif; }
+.info-pill span { color:rgba(255,255,255,.35); font-size:.62rem; letter-spacing:.08em; text-transform:uppercase; display:block; margin-top:2px; }
+
+/* ── SCROLLING MARQUEE ── */
+.marquee-section {
+  background:linear-gradient(90deg,var(--gold) 0%,var(--gold2) 50%,var(--gold) 100%);
+  padding:14px 0; overflow:hidden; position:relative; z-index:10;
+}
+.marquee-track {
+  display:flex; gap:0;
+  animation:marquee 30s linear infinite;
+  width:max-content;
+}
+.marquee-track:hover { animation-play-state:paused; }
+@keyframes marquee { to{transform:translateX(-50%)} }
+.marquee-item {
+  display:flex; align-items:center; gap:10px;
+  padding:0 32px;
+  font-size:.78rem; font-weight:700;
+  color:var(--dark); letter-spacing:.1em; text-transform:uppercase;
+  white-space:nowrap;
+}
+.marquee-item .sep { color:rgba(19,8,4,.35); font-size:1.1rem; }
+
+/* ── SECTION COMMONS ── */
+.section { padding:110px 60px; }
+.container { max-width:1320px; margin:0 auto; }
+.tag {
+  font-size:.68rem; letter-spacing:.2em; text-transform:uppercase;
+  font-weight:700; margin-bottom:14px; display:block;
+}
+.tag-gold { color:var(--gold); }
+.tag-muted { color:var(--muted); }
+.h2 {
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,3.8vw,3.2rem);
+  font-weight:900; line-height:1.1;
+  margin-bottom:16px;
+}
+.h2 em { font-style:italic; color:var(--gold); }
+.sub-text { font-size:.88rem; color:var(--muted); line-height:1.75; max-width:520px; }
+
+/* ── WHAT WE BAKE ── */
+.bake-grid {
+  display:grid; grid-template-columns:1.2fr 1fr; gap:32px; align-items:start;
+}
+.bake-visual {
+  border-radius:28px; overflow:hidden; height:520px;
+  position:relative;
+  box-shadow:0 32px 80px rgba(19,8,4,.18);
+}
+.bake-visual img {
+  width:100%; height:100%; object-fit:cover;
+  transition:transform .8s ease;
+}
+.bake-visual:hover img { transform:scale(1.04); }
+.price-anchor {
+  position:absolute; bottom:28px; left:28px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:var(--dark); border-radius:18px; padding:16px 22px;
+  box-shadow:0 8px 32px rgba(201,152,58,.4);
+  transform-style:preserve-3d;
+  animation:priceFloat 4s ease-in-out infinite;
+}
+@keyframes priceFloat { 0%,100%{transform:translateY(0) rotate(-1deg)} 50%{transform:translateY(-8px) rotate(1deg)} }
+.price-anchor small { display:block; font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; opacity:.7; margin-bottom:2px; }
+.price-anchor strong { font-family:'Playfair Display',serif; font-size:2.2rem; font-weight:900; line-height:1; display:block; }
+
+.bake-items { display:flex; flex-direction:column; gap:14px; }
+.bake-card {
+  background:#fff;
+  border:1px solid rgba(19,8,4,.05);
+  border-radius:18px; padding:20px 22px;
+  display:flex; align-items:center; gap:16px;
+  box-shadow:0 2px 16px rgba(19,8,4,.05);
+  transition:all .3s ease;
+  transform-style:preserve-3d;
+  cursor:none;
+}
+.bake-card:hover {
+  transform:translateY(-4px) translateX(4px) rotateY(-2deg);
+  box-shadow:0 16px 40px rgba(19,8,4,.12);
+  border-color:rgba(201,152,58,.25);
+}
+.bake-icon {
+  width:52px; height:52px; border-radius:14px;
+  background:linear-gradient(135deg,rgba(201,152,58,.12),rgba(240,198,96,.08));
+  border:1px solid rgba(201,152,58,.15);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.5rem; flex-shrink:0;
+  transition:transform .3s;
+}
+.bake-card:hover .bake-icon { transform:scale(1.1) rotateZ(-5deg); }
+.bake-text strong { display:block; font-size:.9rem; font-weight:600; color:var(--text); margin-bottom:4px; }
+.bake-text span { font-size:.75rem; color:var(--muted); line-height:1.5; }
+
+/* ── TRUST STRIP ── */
+.trust-strip {
+  background:var(--dark);
+  padding:60px;
+  display:flex; gap:0;
+}
+.trust-item {
+  flex:1; text-align:center; padding:0 32px;
+  border-right:1px solid rgba(255,255,255,.06);
+  transition:transform .3s;
+  cursor:none;
+}
+.trust-item:last-child { border-right:none; }
+.trust-item:hover { transform:translateY(-4px); }
+.trust-num {
+  font-family:'Playfair Display',serif;
+  font-size:3rem; font-weight:900;
+  color:var(--gold2); display:block;
+  line-height:1;
+}
+.trust-label { font-size:.72rem; color:rgba(255,255,255,.4); letter-spacing:.12em; text-transform:uppercase; margin-top:6px; }
+
+/* ── BENEFITS ── */
+.benefits-section { background:var(--dark2); }
+.benefits-top {
+  display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;
+  margin-bottom:60px;
+}
+.benefits-tiles { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.benefit-tile {
+  border-radius:20px; overflow:hidden; height:210px; position:relative;
+  box-shadow:0 8px 32px rgba(0,0,0,.4);
+  transition:transform .4s ease;
+  transform-style:preserve-3d;
+}
+.benefit-tile:nth-child(1) { margin-top:28px; }
+.benefit-tile:hover { transform:scale(1.03) rotateX(3deg) rotateY(-3deg); }
+.benefit-tile img { width:100%; height:100%; object-fit:cover; transition:transform .5s; }
+.benefit-tile:hover img { transform:scale(1.06); }
+.tile-label {
+  position:absolute; bottom:12px; left:12px;
+  background:rgba(19,8,4,.75); backdrop-filter:blur(8px);
+  color:var(--gold2); font-size:.65rem; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase;
+  padding:6px 12px; border-radius:50px;
+  border:1px solid rgba(201,152,58,.25);
+}
+.benefits-text .h2 { color:#fff; }
+.benefits-text .h2 em { color:var(--gold2); }
+.benefits-text .sub-text { color:rgba(255,255,255,.45); }
+
+.pillars { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+.pillar-card {
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:22px; padding:32px 26px;
+  transition:all .35s ease;
+  transform-style:preserve-3d;
+  cursor:none;
+}
+.pillar-card:hover {
+  background:rgba(201,152,58,.07);
+  border-color:rgba(201,152,58,.2);
+  transform:translateY(-8px) rotateX(4deg);
+  box-shadow:0 24px 60px rgba(0,0,0,.3), 0 0 0 1px rgba(201,152,58,.15);
+}
+.pillar-icon {
+  width:56px; height:56px; border-radius:50%;
+  background:rgba(201,152,58,.1); border:1px solid rgba(201,152,58,.2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.4rem; margin-bottom:20px;
+  transition:transform .3s;
+}
+.pillar-card:hover .pillar-icon { transform:scale(1.12) rotateZ(10deg); }
+.pillar-card h4 { font-family:'Playfair Display',serif; font-size:1.08rem; color:#fff; font-weight:700; margin-bottom:10px; }
+.pillar-card p { font-size:.78rem; color:rgba(255,255,255,.4); line-height:1.7; }
+
+/* ── MENU ── */
+.menu-section { background:var(--cream); }
+.menu-head { text-align:center; margin-bottom:56px; }
+.menu-head .sub-text { margin:0 auto; text-align:center; }
+.menu-layout {
+  display:grid; grid-template-columns:1fr 1.25fr; gap:24px; margin-bottom:24px;
+}
+.menu-stack { display:flex; flex-direction:column; gap:14px; }
+.mcard {
+  background:#fff; border-radius:18px; padding:20px 22px;
+  display:flex; align-items:center; gap:16px;
+  border:1px solid rgba(19,8,4,.05);
+  box-shadow:0 2px 14px rgba(19,8,4,.04);
+  transition:all .3s ease;
+  transform-style:preserve-3d;
+  cursor:none;
+}
+.mcard:hover {
+  transform:translateX(8px) rotateY(-3deg);
+  box-shadow:0 10px 36px rgba(19,8,4,.1);
+  border-color:rgba(201,152,58,.2);
+}
+.mcard-emoji { font-size:2rem; }
+.mcard strong { display:block; font-size:.88rem; font-weight:600; color:var(--text); margin-bottom:3px; }
+.mcard span { font-size:.73rem; color:var(--muted); }
+
+.featured-card {
+  background:linear-gradient(160deg, #2C1208, #130804);
+  border-radius:28px; padding:36px;
+  display:flex; flex-direction:column; justify-content:space-between;
+  min-height:400px;
+  position:relative; overflow:hidden;
+  border:1px solid rgba(255,255,255,.06);
+  transition:transform .4s ease, box-shadow .4s ease;
+  transform-style:preserve-3d;
+  cursor:none;
+}
+.featured-card::before {
+  content:'';
+  position:absolute; top:-60px; right:-60px;
+  width:260px; height:260px;
+  background:radial-gradient(circle, rgba(201,152,58,.12) 0%, transparent 70%);
+}
+.featured-card:hover {
+  transform:rotateX(3deg) rotateY(-4deg) translateY(-6px);
+  box-shadow:0 40px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(201,152,58,.2);
+}
+.f-label { font-size:.65rem; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); font-weight:700; }
+.f-name { font-family:'Playfair Display',serif; font-size:1.9rem; color:#fff; font-weight:900; margin:10px 0 8px; line-height:1.15; }
+.f-desc { font-size:.78rem; color:rgba(255,255,255,.4); line-height:1.65; margin-bottom:18px; }
+.f-big { font-size:5.5rem; text-align:center; display:block; margin:8px 0; filter:drop-shadow(0 8px 20px rgba(0,0,0,.5)); }
+.f-price { font-family:'Playfair Display',serif; font-size:2rem; color:var(--gold2); font-weight:900; display:block; }
+
+.mini-row { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:44px; }
+.mini-card {
+  background:#fff; border-radius:18px; padding:22px 16px; text-align:center;
+  border:1px solid rgba(19,8,4,.05);
+  box-shadow:0 2px 12px rgba(19,8,4,.04);
+  transition:all .35s ease;
+  transform-style:preserve-3d;
+  cursor:none;
+}
+.mini-card:hover {
+  transform:translateY(-8px) rotateX(6deg);
+  box-shadow:0 20px 48px rgba(19,8,4,.12);
+  border-color:rgba(201,152,58,.2);
+}
+.mini-em { font-size:2.4rem; display:block; margin-bottom:10px; transition:transform .3s; }
+.mini-card:hover .mini-em { transform:scale(1.15) rotateZ(-8deg); }
+.mini-name { font-size:.83rem; font-weight:600; color:var(--text); margin-bottom:4px; }
+.mini-sub { font-size:.7rem; color:var(--muted); }
+.menu-cta { text-align:center; }
+
+.btn-outline {
+  display:inline-flex; align-items:center; gap:8px;
+  border:2px solid var(--dark); color:var(--dark);
+  padding:13px 36px; border-radius:50px;
+  font-size:.82rem; font-weight:700; text-decoration:none;
+  letter-spacing:.06em;
+  transition:all .25s ease;
+  cursor:none;
+}
+.btn-outline:hover { background:var(--dark); color:#fff; gap:14px; }
+
+/* ── FLOATING CALL / WHATSAPP ── */
+.float-btns {
+  position:fixed; bottom:28px; right:28px;
+  display:flex; flex-direction:column; gap:12px;
+  z-index:900;
+}
+.float-btn {
+  width:52px; height:52px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-size:1.3rem; text-decoration:none;
+  box-shadow:0 6px 24px rgba(0,0,0,.3);
+  transition:transform .25s, box-shadow .25s;
+  position:relative;
+}
+.float-btn:hover { transform:scale(1.12) translateY(-2px); }
+.float-btn-call { background:linear-gradient(135deg,var(--gold),var(--gold2)); color:var(--dark); }
+.float-btn-call:hover { box-shadow:0 10px 32px rgba(201,152,58,.55); }
+.float-btn-wa { background:#25D366; color:#fff; }
+.float-btn-wa:hover { box-shadow:0 10px 32px rgba(37,211,102,.5); }
+.float-label {
+  position:absolute; right:62px;
+  background:var(--dark); color:#fff;
+  font-size:.7rem; font-weight:600;
+  padding:5px 12px; border-radius:50px;
+  white-space:nowrap;
+  opacity:0; transform:translateX(8px);
+  transition:all .25s ease;
+  pointer-events:none;
+  border:1px solid rgba(255,255,255,.1);
+}
+.float-btn:hover .float-label { opacity:1; transform:translateX(0); }
+
+/* ── EGGLESS BADGE ── */
+.eggless-strip {
+  background:linear-gradient(135deg, #2d5016, #3d6b1e);
+  padding:10px 0; text-align:center;
+  position:relative; z-index:10;
+}
+.eggless-inner {
+  display:inline-flex; align-items:center; gap:10px;
+  font-size:.76rem; font-weight:700;
+  color:#fff; letter-spacing:.1em; text-transform:uppercase;
+}
+.eggless-inner span { background:rgba(255,255,255,.15); padding:3px 10px; border-radius:50px; }
+
+/* ── MENU CAROUSEL ── */
+.carousel-section { background:var(--cream); padding:80px 0 80px 60px; overflow:hidden; }
+.carousel-head { max-width:1320px; margin:0 auto 40px; padding-right:60px; }
+.carousel-track-wrap { overflow:hidden; position:relative; }
+.carousel-track {
+  display:flex; gap:20px;
+  cursor:grab;
+  padding-bottom:16px;
+  user-select:none;
+  -webkit-overflow-scrolling:touch;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.carousel-track::-webkit-scrollbar { display:none; }
+.carousel-track:active { cursor:grabbing; }
+.caro-card {
+  flex-shrink:0; width:240px;
+  background:#fff; border-radius:22px; padding:26px 22px;
+  border:1px solid rgba(19,8,4,.05);
+  box-shadow:0 4px 20px rgba(19,8,4,.06);
+  transition:transform .3s ease, box-shadow .3s ease;
+  transform-style:preserve-3d;
+  cursor:none;
+}
+.caro-card:hover {
+  transform:translateY(-10px) rotateX(4deg) rotateY(-3deg);
+  box-shadow:0 24px 60px rgba(19,8,4,.14), 0 0 0 1px rgba(201,152,58,.2);
+}
+.caro-emoji { font-size:3rem; display:block; margin-bottom:14px; transition:transform .3s; }
+.caro-card:hover .caro-emoji { transform:scale(1.15) rotateZ(-10deg); }
+.caro-name { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; color:var(--text); margin-bottom:6px; }
+.caro-desc { font-size:.74rem; color:var(--muted); line-height:1.6; margin-bottom:14px; }
+.caro-price { font-size:.8rem; font-weight:700; color:var(--gold); }
+.caro-tag {
+  display:inline-block; font-size:.6rem; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase;
+  padding:3px 10px; border-radius:50px; margin-bottom:12px;
+  background:rgba(201,152,58,.1); color:var(--gold);
+  border:1px solid rgba(201,152,58,.2);
+}
+
+/* ── REVIEWS glassmorphism ── */
+.reviews-section {
+  background:linear-gradient(160deg, #2C1208 0%, #1A0805 100%);
+  padding:110px 60px;
+  position:relative; overflow:hidden;
+}
+.reviews-section::before {
+  content:'';
+  position:absolute; top:-200px; left:-200px;
+  width:600px; height:600px;
+  background:radial-gradient(circle, rgba(201,152,58,.08) 0%, transparent 65%);
+  pointer-events:none;
+}
+.reviews-section::after {
+  content:'';
+  position:absolute; bottom:-200px; right:-200px;
+  width:500px; height:500px;
+  background:radial-gradient(circle, rgba(232,160,160,.06) 0%, transparent 65%);
+  pointer-events:none;
+}
+.reviews-head { text-align:center; margin-bottom:56px; }
+.reviews-head .h2 { color:#fff; }
+.reviews-head .h2 em { color:var(--gold2); }
+.reviews-head .tag-muted { color:rgba(255,255,255,.4); }
+.reviews-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:22px; position:relative; z-index:2; }
+.review-card {
+  background:rgba(255,255,255,.07);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:22px; padding:32px 28px;
+  box-shadow:0 8px 40px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.12);
+  transition:all .35s ease;
+  transform-style:preserve-3d;
+  cursor:none;
+  position:relative; overflow:hidden;
+}
+.review-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,var(--gold),var(--gold2));
+  transform:scaleX(0); transform-origin:left;
+  transition:transform .4s ease;
+}
+.review-card:hover::before { transform:scaleX(1); }
+.review-card:hover {
+  transform:translateY(-8px) rotateX(3deg);
+  box-shadow:0 32px 70px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.2);
+  background:rgba(255,255,255,.1);
+}
+.r-quote { font-size:3rem; color:var(--gold); font-family:'Playfair Display',serif; line-height:.8; margin-bottom:14px; display:block; }
+.r-text { font-size:.86rem; color:rgba(255,255,255,.65); line-height:1.75; margin-bottom:22px; font-style:italic; }
+.r-stars { color:var(--gold2); letter-spacing:3px; font-size:.82rem; margin-bottom:10px; }
+.r-author { font-size:.78rem; font-weight:700; color:#fff; }
+.r-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  margin-top:8px;
+  background:rgba(201,152,58,.15); border:1px solid rgba(201,152,58,.25);
+  color:var(--gold); font-size:.65rem; font-weight:600;
+  letter-spacing:.1em; text-transform:uppercase;
+  padding:4px 10px; border-radius:50px;
+}
+
+/* ── ABOUT / STORY ── */
+.about-section { background:var(--dark); padding:110px 60px; }
+.about-inner { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+.about-text .h2 { color:#fff; }
+.about-text .h2 em { color:var(--gold2); }
+.about-text .sub-text { color:rgba(255,255,255,.45); margin-bottom:32px; }
+.about-details { display:flex; flex-direction:column; gap:14px; margin-bottom:36px; }
+.about-detail {
+  display:flex; align-items:flex-start; gap:14px;
+  padding:14px 18px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:14px;
+  font-size:.82rem; color:rgba(255,255,255,.6);
+  transition:all .25s ease;
+  cursor:none;
+}
+.about-detail:hover { background:rgba(201,152,58,.06); border-color:rgba(201,152,58,.2); transform:translateX(4px); }
+.about-detail-icon { font-size:.95rem; flex-shrink:0; margin-top:1px; }
+.stat-row { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.stat-box {
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:16px; padding:20px 16px; text-align:center;
+  transition:all .3s ease;
+  cursor:none;
+}
+.stat-box:hover {
+  background:rgba(201,152,58,.08);
+  border-color:rgba(201,152,58,.2);
+  transform:translateY(-4px);
+  box-shadow:0 12px 32px rgba(0,0,0,.3);
+}
+.stat-box strong { display:block; font-family:'Playfair Display',serif; font-size:1.7rem; color:var(--gold2); font-weight:900; }
+.stat-box span { font-size:.65rem; color:rgba(255,255,255,.35); text-transform:uppercase; letter-spacing:.1em; }
+.about-cards-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.acard {
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:20px; padding:28px 22px; text-align:center;
+  transition:all .35s ease;
+  transform-style:preserve-3d;
+  cursor:none;
+}
+.acard:hover {
+  background:rgba(201,152,58,.07);
+  border-color:rgba(201,152,58,.2);
+  transform:rotateX(5deg) rotateY(-5deg) translateY(-6px);
+  box-shadow:0 20px 50px rgba(0,0,0,.4);
+}
+.acard .icon { font-size:2rem; display:block; margin-bottom:12px; transition:transform .3s; }
+.acard:hover .icon { transform:scale(1.15) rotateZ(-8deg); }
+.acard h4 { font-family:'Playfair Display',serif; font-size:.95rem; color:#fff; margin-bottom:8px; }
+.acard p { font-size:.73rem; color:rgba(255,255,255,.38); line-height:1.65; }
+.acard-wide {
+  grid-column:1/-1;
+  background:rgba(201,152,58,.07);
+  border-color:rgba(201,152,58,.2);
+  text-align:left; flex-direction:row;
+  display:flex; align-items:center; gap:16px; padding:20px 24px;
+}
+.acard-wide .icon { margin:0; font-size:1.8rem; flex-shrink:0; }
+.acard-wide h4 { color:var(--gold2); }
+
+/* ── FOOTER CTA ── */
+.footer-cta {
+  background:radial-gradient(ellipse at center, #341610 0%, #130804 70%);
+  padding:110px 60px; text-align:center;
+  position:relative; overflow:hidden;
+}
+.footer-cta::before {
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%, rgba(201,152,58,.07) 0%, transparent 70%);
+}
+.fcta-tag { display:block; font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; color:var(--gold); font-weight:700; margin-bottom:18px; }
+.fcta-h { font-family:'Playfair Display',serif; font-size:clamp(2.4rem,5vw,4.4rem); font-weight:900; color:#fff; line-height:1.05; margin-bottom:18px; }
+.fcta-h em { font-style:italic; color:var(--gold2); }
+.fcta-sub { font-size:.88rem; color:rgba(255,255,255,.4); margin-bottom:44px; line-height:1.7; }
+.fcta-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; position:relative; z-index:2; }
+.btn-ghost {
+  display:inline-flex; align-items:center; gap:8px;
+  border:1.5px solid rgba(255,255,255,.2);
+  color:rgba(255,255,255,.7); padding:13px 28px; border-radius:50px;
+  font-size:.82rem; font-weight:500; text-decoration:none;
+  letter-spacing:.06em; cursor:none;
+  transition:all .25s ease;
+}
+.btn-ghost:hover { border-color:rgba(255,255,255,.55); color:#fff; }
+
+/* ── FOOTER ── */
+footer {
+  background:var(--dark);
+  border-top:1px solid rgba(255,255,255,.05);
+  padding:60px 60px 36px;
+}
+.footer-grid { display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:48px; margin-bottom:48px; }
+.footer-brand { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:900; color:#fff; margin-bottom:12px; }
+.footer-brand span { color:var(--gold2); }
+.footer-tagline { font-size:.78rem; color:rgba(255,255,255,.3); line-height:1.75; margin-bottom:22px; }
+.footer-contacts { display:flex; flex-direction:column; gap:8px; }
+.footer-contact-item {
+  display:flex; align-items:center; gap:8px;
+  font-size:.78rem; color:rgba(255,255,255,.5);
+  text-decoration:none; transition:color .2s;
+}
+.footer-contact-item:hover { color:var(--gold2); }
+.fcol h5 { font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.28); font-weight:700; margin-bottom:18px; }
+.fcol ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
+.fcol a { font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none; transition:color .2s; }
+.fcol a:hover { color:var(--gold2); }
+.footer-bottom { display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(255,255,255,.05); padding-top:24px; }
+.footer-copy { font-size:.72rem; color:rgba(255,255,255,.2); }
+.footer-women { display:flex; align-items:center; gap:6px; font-size:.7rem; color:var(--gold); background:rgba(201,152,58,.08); border:1px solid rgba(201,152,58,.15); padding:6px 14px; border-radius:50px; }
+
+/* ── SCROLL REVEAL ── */
+.reveal { opacity:0; transform:translateY(40px); transition:opacity .8s ease, transform .8s ease; }
+.reveal.up { opacity:1; transform:translateY(0); }
+.reveal-left { opacity:0; transform:translateX(-40px); transition:opacity .8s ease, transform .8s ease; }
+.reveal-left.up { opacity:1; transform:translateX(0); }
+.reveal-right { opacity:0; transform:translateX(40px); transition:opacity .8s ease, transform .8s ease; }
+.reveal-right.up { opacity:1; transform:translateX(0); }
+
+/* delay helpers */
+.d1 { transition-delay:.1s; }
+.d2 { transition-delay:.2s; }
+.d3 { transition-delay:.3s; }
+.d4 { transition-delay:.4s; }
+.d5 { transition-delay:.5s; }
+
+/* ── FAQ ── */
+.faq-section { background:var(--cream2); padding:100px 60px; }
+.faq-inner { display:grid; grid-template-columns:1fr 1.4fr; gap:80px; align-items:start; }
+.faq-left .h2 em { color:var(--gold); }
+.faq-left .sub-text { margin-bottom:28px; }
+.faq-contact-card {
+  background:var(--dark); border-radius:22px; padding:28px 26px;
+  display:flex; flex-direction:column; gap:14px;
+}
+.faq-contact-card p { font-size:.78rem; color:rgba(255,255,255,.45); margin-bottom:4px; }
+.faq-list { display:flex; flex-direction:column; gap:14px; }
+.faq-item {
+  background:#fff; border-radius:18px;
+  border:1px solid rgba(19,8,4,.05);
+  box-shadow:0 2px 12px rgba(19,8,4,.04);
+  overflow:hidden;
+  transition:box-shadow .3s ease;
+}
+.faq-item:hover { box-shadow:0 8px 32px rgba(19,8,4,.1); }
+.faq-q {
+  width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px;
+  padding:20px 24px;
+  background:none; border:none; cursor:none;
+  font-family:'Playfair Display',serif;
+  font-size:.95rem; font-weight:700; color:var(--text);
+  text-align:left;
+  transition:color .2s;
+}
+.faq-q:hover { color:var(--gold); }
+.faq-arrow {
+  width:28px; height:28px; border-radius:50%;
+  background:rgba(201,152,58,.1); color:var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  font-size:.9rem; flex-shrink:0;
+  transition:transform .3s ease, background .2s;
+}
+.faq-item.open .faq-arrow { transform:rotate(180deg); background:var(--gold); color:var(--dark); }
+.faq-a {
+  max-height:0; overflow:hidden;
+  transition:max-height .4s ease, padding .3s ease;
+  padding:0 24px;
+}
+.faq-item.open .faq-a { max-height:200px; padding:0 24px 20px; }
+.faq-a p { font-size:.82rem; color:var(--muted); line-height:1.75; }
+.faq-a .faq-highlight {
+  display:inline-flex; align-items:center; gap:6px; margin-top:10px;
+  background:rgba(201,152,58,.1); border:1px solid rgba(201,152,58,.2);
+  color:var(--gold); font-size:.7rem; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase;
+  padding:5px 12px; border-radius:50px;
+}
+
+/* ── MAPS / LOCATION ── */
+.map-section { background:var(--dark); padding:80px 60px; }
+.map-inner { display:grid; grid-template-columns:1fr 1.5fr; gap:48px; align-items:center; }
+.map-text .h2 { color:#fff; }
+.map-text .h2 em { color:var(--gold2); }
+.map-text .sub-text { color:rgba(255,255,255,.45); margin-bottom:28px; }
+.map-details { display:flex; flex-direction:column; gap:12px; margin-bottom:28px; }
+.map-detail {
+  display:flex; align-items:center; gap:12px;
+  font-size:.82rem; color:rgba(255,255,255,.6);
+}
+.map-frame {
+  border-radius:22px; overflow:hidden;
+  box-shadow:0 20px 60px rgba(0,0,0,.4);
+  height:340px;
+  border:2px solid rgba(201,152,58,.15);
+}
+.map-frame iframe { width:100%; height:100%; border:none; }
+.btn-directions {
+  display:inline-flex; align-items:center; gap:10px;
+  background:linear-gradient(135deg,var(--gold),var(--gold2));
+  color:var(--dark); padding:13px 28px; border-radius:50px;
+  font-size:.82rem; font-weight:700; text-decoration:none;
+  letter-spacing:.06em; box-shadow:0 4px 20px rgba(201,152,58,.3);
+  transition:transform .2s, box-shadow .2s; cursor:none;
+}
+.btn-directions:hover { transform:translateY(-2px); box-shadow:0 10px 32px rgba(201,152,58,.5); }
+
+@media(max-width:960px) {
+  nav { padding:16px 24px; }
+  nav.solid { padding:12px 24px; }
+  .nav-links { display:none; }
+  .hero-inner { grid-template-columns:1fr; padding:110px 24px 60px; text-align:center; }
+  .hero-left, .hero-right { display:none; }
+  .cake-3d-wrap { width:260px; height:260px; }
+  .section { padding:70px 24px; }
+  .bake-grid, .benefits-top, .about-inner { grid-template-columns:1fr; }
+  .reviews-grid { grid-template-columns:1fr; }
+  .menu-layout { grid-template-columns:1fr; }
+  .mini-row { grid-template-columns:repeat(2,1fr); }
+  .pillars { grid-template-columns:1fr; }
+  .footer-grid { grid-template-columns:1fr 1fr; }
+  .trust-strip { padding:40px 24px; flex-wrap:wrap; }
+  .trust-item { min-width:50%; border-right:none; border-bottom:1px solid rgba(255,255,255,.06); padding:20px; }
+  .faq-inner, .map-inner { grid-template-columns:1fr; }
+  .carousel-section { padding:70px 0 70px 24px; }
+  .float-btns { bottom:20px; right:16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div id="cursor">
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+</div>
+
+<!-- PARTICLES -->
+<canvas id="particles"></canvas>
+
+<!-- FLOATING CALL / WA BUTTONS -->
+<div class="float-btns">
+  <a href="tel:8411951335" class="float-btn float-btn-call">
+    📞
+    <span class="float-label">Call Now · 8411 951 335</span>
+  </a>
+  <a href="tel:9359691451" class="float-btn float-btn-wa">
+    💬
+    <span class="float-label">WhatsApp Us</span>
+  </a>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">EAT<span>&</span>TREAT</a>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="tel:8411951335" class="nav-cta">Order Now</a>
+</nav>
+
+
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg-text">CAKE</div>
+  <div class="hero-glow"></div>
+  <div class="hero-inner">
+
+    <div class="hero-left">
+      <div class="hero-badge"><span class="badge-dot"></span>Women-Owned · Ratnagiri</div>
+      <p class="hero-quote">"Baked with love,<br>delivered to your door —<br>one slice at a time."</p>
+      <div class="hero-thumbs">
+        <div class="hero-thumb"><span class="thumb-icon">🎂</span><div class="thumb-text"><strong>Custom Cakes</strong><span>Made to your occasion</span></div></div>
+        <div class="hero-thumb"><span class="thumb-icon">🍫</span><div class="thumb-text"><strong>Fudgy Brownies</strong><span>Gooey, rich, irresistible</span></div></div>
+        <div class="hero-thumb"><span class="thumb-icon">🥐</span><div class="thumb-text"><strong>Fresh Pastries</strong><span>Fruit & cream, daily baked</span></div></div>
+      </div>
+    </div>
+
+    <div class="hero-center">
+      <h1 class="hero-h1">Every <em>Bite</em><span class="line2">is a Sweet Memory</span></h1>
+      <div class="cake-3d-wrap" id="cake3d">
+        <div class="cake-ring"></div>
+        <div class="cake-ring2"></div>
+        <div class="cake-sphere" id="cakeSphere">
+          <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=640&h=640&fit=crop&crop=center&q=85" alt="Artisan Cake">
+        </div>
+        <div class="cake-dot" style="top:16%;right:4%">
+          <div class="cake-tooltip">Black Forest ⭐ Most Loved</div>
+        </div>
+        <div class="cake-dot" style="bottom:18%;left:3%">
+          <div class="cake-tooltip">Fresh Daily 🌿</div>
+        </div>
+      </div>
+      <div class="hero-rating">
+        <span class="stars">★★★★★</span>
+        <span>5.0 · 7 Reviews · Ganpatipule Road</span>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="glass-card" id="heroCard">
+        <div class="product-label">Signature Creation</div>
+        <div class="product-name">Black Forest Cake</div>
+        <div class="product-desc">Dark chocolate layers, Chantilly cream & kirsch-soaked cherries — our most iconic creation.</div>
+        <div class="product-meta">Custom sizes · Hotel delivery available</div>
+        <a href="tel:8411951335" class="btn-gold">Order This Cake</a>
+      </div>
+      <div class="info-pills">
+        <div class="info-pill"><strong>9 AM</strong><span>Opens</span></div>
+        <div class="info-pill"><strong>8 PM</strong><span>Closes</span></div>
+        <div class="info-pill"><strong>Tue–Sun</strong><span>Open</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marquee">
+    <div class="marquee-item">🎂 Custom Cakes <span class="sep">✦</span></div>
+    <div class="marquee-item">🍫 Artisan Brownies <span class="sep">✦</span></div>
+    <div class="marquee-item">🥐 Fresh Pastries <span class="sep">✦</span></div>
+    <div class="marquee-item">⭐ 5-Star Rated <span class="sep">✦</span></div>
+    <div class="marquee-item">♀ Women Owned <span class="sep">✦</span></div>
+    <div class="marquee-item">🚗 Hotel Delivery <span class="sep">✦</span></div>
+    <div class="marquee-item">🌿 No Preservatives <span class="sep">✦</span></div>
+    <div class="marquee-item">📍 Ganpatipule Road <span class="sep">✦</span></div>
+    <div class="marquee-item">🎂 Custom Cakes <span class="sep">✦</span></div>
+    <div class="marquee-item">🍫 Artisan Brownies <span class="sep">✦</span></div>
+    <div class="marquee-item">🥐 Fresh Pastries <span class="sep">✦</span></div>
+    <div class="marquee-item">⭐ 5-Star Rated <span class="sep">✦</span></div>
+    <div class="marquee-item">♀ Women Owned <span class="sep">✦</span></div>
+    <div class="marquee-item">🚗 Hotel Delivery <span class="sep">✦</span></div>
+    <div class="marquee-item">🌿 No Preservatives <span class="sep">✦</span></div>
+    <div class="marquee-item">📍 Ganpatipule Road <span class="sep">✦</span></div>
+  </div>
+</div>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-item">
+    <strong class="trust-num" data-count="5" data-suffix=".0">0</strong>
+    <span class="trust-label">Google Rating</span>
+  </div>
+  <div class="trust-item">
+    <strong class="trust-num" data-count="7" data-suffix="+">0</strong>
+    <span class="trust-label">Five-Star Reviews</span>
+  </div>
+  <div class="trust-item">
+    <strong class="trust-num" data-count="100" data-suffix="%">0</strong>
+    <span class="trust-label">Fresh Daily</span>
+  </div>
+  <div class="trust-item">
+    <strong class="trust-num" data-count="0" data-suffix="%" data-text="♀">♀</strong>
+    <span class="trust-label">Women-Owned</span>
+  </div>
+</div>
+
+<!-- WHAT WE BAKE -->
+<section class="section" style="background:var(--cream)">
+  <div class="container">
+    <div class="bake-grid">
+      <div class="bake-visual reveal-left">
+        <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=900&h=1100&fit=crop&q=85" alt="Our Bakes">
+        <div class="price-anchor">
+          <small>Starting From</small>
+          <strong>₹350</strong>
+        </div>
+      </div>
+      <div>
+        <div class="reveal">
+          <span class="tag tag-muted">Our Daily Delights</span>
+          <h2 class="h2">Handcrafted with <em>Local Love</em></h2>
+          <p class="sub-text" style="margin-bottom:32px">Every item is made fresh, in small batches, with ingredients sourced close to home in Ratnagiri.</p>
+        </div>
+        <div class="bake-items">
+          <div class="bake-card reveal d1">
+            <div class="bake-icon">🎂</div>
+            <div class="bake-text"><strong>Celebration Cakes</strong><span>Custom-designed for birthdays, weddings & every occasion worth celebrating.</span></div>
+          </div>
+          <div class="bake-card reveal d2">
+            <div class="bake-icon">🥐</div>
+            <div class="bake-text"><strong>Fresh Pastries</strong><span>Fruit-filled, cream-loaded pastries baked fresh every single morning.</span></div>
+          </div>
+          <div class="bake-card reveal d3">
+            <div class="bake-icon">🍫</div>
+            <div class="bake-text"><strong>Fudgy Brownies</strong><span>Dense, gooey chocolate brownies. A square of pure comfort.</span></div>
+          </div>
+          <div class="bake-card reveal d4">
+            <div class="bake-icon">🎀</div>
+            <div class="bake-text"><strong>Surprise Setups & Decor</strong><span>We bring the entire celebration — to hotels, homes & venues.</span></div>
+          </div>
+          <div class="bake-card reveal d5">
+            <div class="bake-icon">🍘</div>
+            <div class="bake-text"><strong>Namkins & Savories</strong><span>Crispy, spiced, and perfectly snackable. Great for tea time.</span></div>
+          </div>
+        </div>
+        <!-- EGGLESS CARD ROW -->
+        <div class="eggless-card reveal">
+          <div class="eggless-card-left">
+            <span class="eggless-icon">🥚</span>
+            <div>
+              <strong>100% Eggless Options Available</strong>
+              <span>All cakes can be made eggless on request — same taste, zero compromise.</span>
+            </div>
+          </div>
+          <a href="tel:8411951335" class="eggless-cta">Call to Customise</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="section benefits-section">
+  <div class="container">
+    <div class="benefits-top">
+      <div class="reveal-left">
+        <span class="tag tag-gold">Why Choose Us</span>
+        <h2 class="h2" style="color:#fff">Experience <em>Joy</em><br>with Every Bite</h2>
+        <p class="sub-text" style="color:rgba(255,255,255,.45);margin-bottom:32px">We bake with real ingredients, real care, and a genuine love for making your moments sweeter. No shortcuts, no preservatives — just honest craft.</p>
+        <a href="tel:8411951335" class="btn-gold">Call to Order</a>
+      </div>
+      <div class="benefits-tiles reveal-right">
+        <div class="benefit-tile">
+          <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=500&h=420&fit=crop&q=85" alt="Natural Ingredients">
+          <div class="tile-label">Natural Ingredients</div>
+        </div>
+        <div class="benefit-tile">
+          <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500&h=420&fit=crop&q=85" alt="Handcrafted Daily">
+          <div class="tile-label">Handcrafted Daily</div>
+        </div>
+      </div>
+    </div>
+    <div class="pillars">
+      <div class="pillar-card reveal d1">
+        <div class="pillar-icon">🍰</div>
+        <h4>Rich Flavour & Moist Layers</h4>
+        <p>Every cake is baked to perfection — soft, moist layers that melt the moment they hit your tongue.</p>
+      </div>
+      <div class="pillar-card reveal d2">
+        <div class="pillar-icon">👩‍🍳</div>
+        <h4>Artisan Techniques</h4>
+        <p>Traditional methods, modern presentations. Each creation is a reflection of real baking skill and passion.</p>
+      </div>
+      <div class="pillar-card reveal d3">
+        <div class="pillar-icon">🌿</div>
+        <h4>No Preservatives, Just Love</h4>
+        <p>Everything is made fresh. No hidden additives. What you taste is real food made with genuine care.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="section menu-section" id="menu">
+  <div class="container">
+    <div class="menu-head reveal">
+      <span class="tag tag-muted">Our Creations</span>
+      <h2 class="h2">Discover Our <em>Cake Collection</em></h2>
+      <p class="sub-text">From signature classics to seasonal specials — every cake tells a story.</p>
+    </div>
+    <div class="menu-layout">
+      <div class="menu-stack">
+        <div class="mcard reveal d1"><span class="mcard-emoji">🍓</span><div><strong>Strawberry Delight</strong><span>Fresh cream & seasonal strawberries</span></div></div>
+        <div class="mcard reveal d2"><span class="mcard-emoji">🍋</span><div><strong>Lemon Bliss Cake</strong><span>Zesty, light & utterly refreshing</span></div></div>
+        <div class="mcard reveal d3"><span class="mcard-emoji">🥭</span><div><strong>Mango Mousse Cake</strong><span>Alphonso mango — Konkan pride</span></div></div>
+        <div class="mcard reveal d4"><span class="mcard-emoji">🍰</span><div><strong>Vanilla Cloud Cake</strong><span>Classic sponge, whipped cream</span></div></div>
+        <div class="mcard reveal d5"><span class="mcard-emoji">🍫</span><div><strong>Dark Chocolate Ganache</strong><span>Intense, velvety, deeply satisfying</span></div></div>
+      </div>
+      <div class="featured-card reveal-right" id="featCard">
+        <div>
+          <div class="f-label">Most Loved · Signature</div>
+          <div class="f-name">Black Forest<br>Signature Cake</div>
+          <div class="f-desc">Dark chocolate sponge, kirsch cream, whole cherries & chocolate shavings.</div>
+        </div>
+        <span class="f-big">🎂</span>
+        <div>
+          <span class="f-price">₹599+</span>
+          <a href="tel:8411951335" class="btn-gold" style="margin-top:14px">Order This Cake</a>
+        </div>
+      </div>
+    </div>
+    <div class="mini-row">
+      <div class="mini-card reveal d1"><span class="mini-em">🧁</span><div class="mini-name">Cupcakes</div><div class="mini-sub">Assorted flavours</div></div>
+      <div class="mini-card reveal d2"><span class="mini-em">🥧</span><div class="mini-name">Fruit Tarts</div><div class="mini-sub">Seasonal & fresh</div></div>
+      <div class="mini-card reveal d3"><span class="mini-em">🍫</span><div class="mini-name">Brownies</div><div class="mini-sub">Fudgy & gooey</div></div>
+      <div class="mini-card reveal d4"><span class="mini-em">🎀</span><div class="mini-name">Surprise Setups</div><div class="mini-sub">Hotel & home delivery</div></div>
+    </div>
+    <div class="menu-cta reveal">
+      <a href="tel:8411951335" class="btn-outline">Call for Full Menu & Pricing</a>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews-section" id="reviews">
+  <div class="container">
+    <div class="reviews-head reveal">
+      <span class="tag tag-muted">Kind Words</span>
+      <h2 class="h2">Loved by Our <em>Community</em></h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card reveal d1">
+        <span class="r-quote">"</span>
+        <p class="r-text">Owner personally ensured a hotel surprise for my brother — flawless taste & beauty! The cake arrived perfectly decorated and everyone was amazed.</p>
+        <div class="r-stars">★★★★★</div>
+        <div class="r-author">Pranil Kale</div>
+        <div class="r-badge">✓ Verified Google Review</div>
+      </div>
+      <div class="review-card reveal d2">
+        <span class="r-quote">"</span>
+        <p class="r-text">So pretty we almost didn't cut it. Almost. Then the flavour blew us away completely. Best cake we've had in Ratnagiri, no question.</p>
+        <div class="r-stars">★★★★★</div>
+        <div class="r-author">Shayaan Sayyed</div>
+        <div class="r-badge">✓ Verified Google Review</div>
+      </div>
+      <div class="review-card reveal d3">
+        <span class="r-quote">"</span>
+        <p class="r-text">Delicious, fresh, and that extra care — you can taste the heart in every bite. Will definitely order again for our next celebration.</p>
+        <div class="r-stars">★★★★★</div>
+        <div class="r-author">Sukhada Pandhare</div>
+        <div class="r-badge">✓ Verified Google Review</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU CAROUSEL -->
+<section class="carousel-section" id="menu">
+  <div class="carousel-head reveal">
+    <span class="tag tag-muted">Swipe to Explore</span>
+    <h2 class="h2">Discover Our <em>Collections</em></h2>
+    <p class="sub-text">Drag or swipe to browse — hover for the full 3D experience on desktop.</p>
+  </div>
+  <div class="carousel-track-wrap">
+    <div class="carousel-track" id="carouselTrack">
+      <div class="caro-card">
+        <div class="caro-tag">Most Loved</div>
+        <span class="caro-emoji">🎂</span>
+        <div class="caro-name">Black Forest</div>
+        <div class="caro-desc">Dark chocolate, kirsch cream & whole cherries. Our signature cake.</div>
+        <div class="caro-price">From ₹599</div>
+      </div>
+      <div class="caro-card">
+        <div class="caro-tag">Seasonal</div>
+        <span class="caro-emoji">🥭</span>
+        <div class="caro-name">Mango Mousse</div>
+        <div class="caro-desc">Alphonso mango mousse on a buttery sponge. Pure Konkan pride.</div>
+        <div class="caro-price">From ₹549</div>
+      </div>
+      <div class="caro-card">
+        <div class="caro-tag">Classic</div>
+        <span class="caro-emoji">🍓</span>
+        <div class="caro-name">Strawberry Delight</div>
+        <div class="caro-desc">Fresh cream layered with seasonal strawberries — light and refreshing.</div>
+        <div class="caro-price">From ₹499</div>
+      </div>
+      <div class="caro-card">
+        <div class="caro-tag">Eggless ✓</div>
+        <span class="caro-emoji">🍰</span>
+        <div class="caro-name">Vanilla Cloud</div>
+        <div class="caro-desc">Classic vanilla sponge, whipped cream frosting, eggless available.</div>
+        <div class="caro-price">From ₹450</div>
+      </div>
+      <div class="caro-card">
+        <div class="caro-tag">Bestseller</div>
+        <span class="caro-emoji">🍫</span>
+        <div class="caro-name">Dark Ganache</div>
+        <div class="caro-desc">Intense dark chocolate ganache, rich, velvety, deeply satisfying.</div>
+        <div class="caro-price">From ₹550</div>
+      </div>
+      <div class="caro-card">
+        <div class="caro-tag">Bites</div>
+        <span class="caro-emoji">🧁</span>
+        <div class="caro-name">Cupcakes</div>
+        <div class="caro-desc">Assorted flavours, topped with swirled buttercream. Perfect for gifting.</div>
+        <div class="caro-price">From ₹60 each</div>
+      </div>
+      <div class="caro-card">
+        <div class="caro-tag">Tea-time</div>
+        <span class="caro-emoji">🍫</span>
+        <div class="caro-name">Fudgy Brownies</div>
+        <div class="caro-desc">Dense, gooey chocolate brownies — a square of pure comfort.</div>
+        <div class="caro-price">From ₹350 / box</div>
+      </div>
+      <div class="caro-card">
+        <div class="caro-tag">New</div>
+        <span class="caro-emoji">🍋</span>
+        <div class="caro-name">Lemon Bliss</div>
+        <div class="caro-desc">Zesty lemon sponge with a tangy cream cheese frosting. Utterly refreshing.</div>
+        <div class="caro-price">From ₹480</div>
+      </div>
+      <div class="caro-card">
+        <div class="caro-tag">Savoury</div>
+        <span class="caro-emoji">🍘</span>
+        <div class="caro-name">Namkins</div>
+        <div class="caro-desc">Crispy, spiced traditional bites. Great with chai.</div>
+        <div class="caro-price">From ₹120</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="reveal-left">
+        <span class="tag tag-gold">Our Story</span>
+        <h2 class="h2" style="color:#fff">A Women-Owned<br><em>Cake House</em> with Heart</h2>
+        <p class="sub-text" style="color:rgba(255,255,255,.45);margin-bottom:32px">Nestled near Varavade on Ganpatipule Road, Eat-N-Treat was born from a simple belief — that great food is an act of love. We bake every order as if it's for our own family.</p>
+        <div class="about-details">
+          <div class="about-detail"><span class="about-detail-icon">📍</span><span>Bus Stand, Ganpatipule Road, near Varavade, Ratnagiri 415620</span></div>
+          <div class="about-detail"><span class="about-detail-icon">📞</span><span><a href="tel:8411951335" style="color:inherit;text-decoration:none">8411 951 335</a> · <a href="tel:9359691451" style="color:inherit;text-decoration:none">9359 691 451</a></span></div>
+          <div class="about-detail"><span class="about-detail-icon">🕘</span><span>Open 9 AM – 8 PM · Tuesday to Sunday</span></div>
+          <div class="about-detail"><span class="about-detail-icon">🚗</span><span>Takeaway & local delivery available</span></div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-box"><strong class="count-up" data-val="5" data-dec=".0">5.0</strong><span>Google Rating</span></div>
+          <div class="stat-box"><strong class="count-up" data-val="7">7+</strong><span>5-Star Reviews</span></div>
+          <div class="stat-box"><strong>♀</strong><span>Women Owned</span></div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <div class="about-cards-grid">
+          <div class="acard"><span class="icon">🎂</span><h4>Custom Orders</h4><p>Any occasion, any design. We bring your cake vision to life.</p></div>
+          <div class="acard"><span class="icon">🚗</span><h4>Hotel Delivery</h4><p>We deliver celebrations directly to hotels in Ratnagiri.</p></div>
+          <div class="acard"><span class="icon">🌿</span><h4>Fresh Daily</h4><p>No day-old stock. Baked fresh, every single day.</p></div>
+          <div class="acard"><span class="icon">🏆</span><h4>5-Star Rated</h4><p>A perfect 5.0 on Google — our customers say it best.</p></div>
+          <div class="acard acard-wide"><span class="icon">📍</span><div><h4>Find Us on Ganpatipule Road</h4><p>Near Varavade Bus Stand · Ratnagiri 415620 · Konkan Coast</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="container">
+    <div class="faq-inner">
+      <div class="reveal-left">
+        <span class="tag tag-muted">Quick Answers</span>
+        <h2 class="h2">Common <em>Questions</em></h2>
+        <p class="sub-text">Everything you need to know before placing your order. Still unsure? Just call us — we're happy to help.</p>
+        <div class="faq-contact-card">
+          <p>📞 Reach us directly</p>
+          <a href="tel:8411951335" class="btn-gold" style="font-size:.8rem">Call 8411 951 335</a>
+          <a href="tel:9359691451" class="btn-ghost" style="font-size:.78rem;padding:10px 20px">WhatsApp 9359 691 451</a>
+        </div>
+      </div>
+      <div class="faq-list reveal-right">
+        <div class="faq-item open">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            How much advance notice do you need for a custom cake?
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a">
+            <p>For standard cakes, we typically need <strong>24–48 hours</strong> advance notice. For multi-tier or heavily customised cakes, please order at least 3–4 days ahead to ensure the best results.</p>
+            <span class="faq-highlight">⏰ 48 hrs for custom tiers</span>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Do you offer 100% eggless cakes?
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a">
+            <p>Yes! Every cake on our menu can be made fully eggless on request — with no compromise on taste or texture. Just mention it when you call or WhatsApp your order.</p>
+            <span class="faq-highlight">🥚 100% Eggless — just ask!</span>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Do you deliver in Ratnagiri? What areas?
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a">
+            <p>We offer local delivery across Ratnagiri, including Ganpatipule, Varavade, and surrounding areas. We also deliver directly to hotels for surprise setups. Call us to confirm your area.</p>
+            <span class="faq-highlight">🚗 Ratnagiri · Ganpatipule · Hotel delivery</span>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Can I customise the design and flavour?
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a">
+            <p>Absolutely — custom designs are our speciality. Share your theme, colour palette, or reference photos and we'll bring your vision to life. Flavours, frosting, and toppings are all customisable.</p>
+            <span class="faq-highlight">🎨 Full custom design available</span>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Are your ingredients fresh and preservative-free?
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a">
+            <p>Yes — every item is baked fresh daily with no artificial preservatives. We use locally sourced ingredients wherever possible and believe food made with real ingredients simply tastes better.</p>
+            <span class="faq-highlight">🌿 No preservatives · Fresh daily</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GOOGLE MAPS -->
+<section class="map-section">
+  <div class="container">
+    <div class="map-inner">
+      <div class="reveal-left">
+        <span class="tag tag-gold">Find Us</span>
+        <h2 class="h2">Visit Our <em>Cake House</em></h2>
+        <p class="sub-text">We're located on Ganpatipule Road, near Varavade Bus Stand, Ratnagiri. Easy to find, worth the trip.</p>
+        <div class="map-details">
+          <div class="map-detail">📍 Bus Stand, Ganpatipule Road, near Varavade, Ratnagiri 415620</div>
+          <div class="map-detail">🕘 Tuesday – Sunday · 9 AM to 8 PM</div>
+          <div class="map-detail">🚗 Takeaway & local delivery available</div>
+        </div>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Eat-N-Treat+Ratnagiri" target="_blank" class="btn-directions">
+          🗺️ Get Directions
+        </a>
+      </div>
+      <div class="map-frame reveal-right">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15291.85!2d73.3003!3d16.9902!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc01c62d0f5cd7b%3A0x1!2sGanpatipule+Rd%2C+Ratnagiri%2C+Maharashtra+415620!5e0!3m2!1sen!2sin!4v1700000000000"
+          allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<section class="footer-cta">
+  <div class="container" style="position:relative;z-index:2">
+    <span class="fcta-tag">Ready to Order?</span>
+    <h2 class="fcta-h reveal">Your Dream Cake,<br>One Call Away <em>🍰</em></h2>
+    <p class="fcta-sub reveal">Call or WhatsApp us — we'll bake happiness, one slice at a time.<br>Custom orders, surprise deliveries & everything sweet.</p>
+    <div class="fcta-btns">
+      <a href="tel:8411951335" class="btn-gold" style="font-size:.9rem;padding:16px 40px">📞 8411 951 335</a>
+      <a href="tel:9359691451" class="btn-ghost">💬 WhatsApp 9359 691 451</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">EAT<span>&</span>TREAT</div>
+        <p class="footer-tagline">Artisan Cake House · Ganpatipule Road, Ratnagiri.<br>Handcrafted with local love since day one.</p>
+        <div class="footer-contacts">
+          <a href="tel:8411951335" class="footer-contact-item">📞 8411 951 335</a>
+          <a href="tel:9359691451" class="footer-contact-item">💬 9359 691 451</a>
+          <span class="footer-contact-item">📍 Ganpatipule Road, Ratnagiri 415620</span>
+          <span class="footer-contact-item">🕘 Tue–Sun · 9 AM – 8 PM</span>
+        </div>
+      </div>
+      <div class="fcol">
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#menu">Our Menu</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#about">Our Story</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h5>Specialties</h5>
+        <ul>
+          <li><a href="#">Custom Cakes</a></li>
+          <li><a href="#">Black Forest</a></li>
+          <li><a href="#">Fresh Pastries</a></li>
+          <li><a href="#">Brownies</a></li>
+        </ul>
+      </div>
+      <div class="fcol">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="tel:8411951335">8411 951 335</a></li>
+          <li><a href="tel:9359691451">9359 691 451</a></li>
+          <li><a href="#">Ganpatipule Road</a></li>
+          <li><a href="#">Ratnagiri 415620</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 Eat-N-Treat Cake House · All rights reserved</span>
+      <div class="footer-women">♀ Women-Owned Business · Proudly Local</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── CUSTOM CURSOR ──
+const dot = document.getElementById('cursor-dot');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animCursor() {
+  dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animCursor);
+}
+animCursor();
+document.querySelectorAll('a,button,.bake-card,.mcard,.mini-card,.review-card,.acard,.pillar-card,.hero-thumb,.trust-item,.stat-box,.about-detail').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+});
+
+// ── NAV SCROLL ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('solid', window.scrollY > 60));
+
+// ── PARTICLES ──
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+function resizeCanvas() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+class Particle {
+  constructor() { this.reset(); }
+  reset() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.r = Math.random() * 1.5 + 0.3;
+    this.vx = (Math.random() - 0.5) * 0.3;
+    this.vy = -Math.random() * 0.4 - 0.1;
+    this.alpha = Math.random() * 0.4 + 0.1;
+    this.life = Math.random() * 300 + 100;
+    this.age = 0;
+  }
+  update() {
+    this.x += this.vx; this.y += this.vy; this.age++;
+    if (this.age > this.life || this.y < -10) this.reset();
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(201,152,58,${this.alpha * (1 - this.age / this.life)})`;
+    ctx.fill();
+  }
+}
+for (let i = 0; i < 80; i++) particles.push(new Particle());
+function animParticles() {
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animParticles);
+}
+animParticles();
+
+// ── 3D TILT on HERO CARD ──
+const heroCard = document.getElementById('heroCard');
+if (heroCard) {
+  heroCard.addEventListener('mousemove', e => {
+    const r = heroCard.getBoundingClientRect();
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    const rx = (e.clientY - cy) / 16, ry = -(e.clientX - cx) / 16;
+    heroCard.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+    heroCard.style.boxShadow = `${-ry * 2}px ${rx * 2}px 50px rgba(0,0,0,.4), 0 0 0 1px rgba(201,152,58,.2)`;
+  });
+  heroCard.addEventListener('mouseleave', () => {
+    heroCard.style.transform = ''; heroCard.style.boxShadow = '';
+  });
+}
+
+// ── 3D TILT GENERIC ──
+document.querySelectorAll('.pillar-card,.review-card,.acard,.mini-card,.featured-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    const rx = (e.clientY - cy) / 20, ry = -(e.clientX - cx) / 20;
+    card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px)`;
+  });
+  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+});
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('up'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => observer.observe(el));
+
+// ── COUNT UP ──
+const countObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    const target = parseFloat(el.dataset.count || el.dataset.val || 0);
+    const suffix = el.dataset.suffix || '';
+    const dec = el.dataset.dec || '';
+    if (el.dataset.text) return;
+    let start = 0;
+    const step = target / 50;
+    const timer = setInterval(() => {
+      start = Math.min(start + step, target);
+      el.textContent = Math.floor(start) + (dec && start >= target ? dec : '') + (suffix && start >= target ? suffix : '');
+      if (start >= target) { clearInterval(timer); }
+    }, 30);
+    countObserver.unobserve(el);
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.trust-num, .count-up').forEach(el => countObserver.observe(el));
+
+// ── PARALLAX HERO BG TEXT ──
+window.addEventListener('scroll', () => {
+  const txt = document.querySelector('.hero-bg-text');
+  if (txt) txt.style.transform = `translateY(${window.scrollY * 0.35}px)`;
+  const glow = document.querySelector('.hero-glow');
+  if (glow) glow.style.transform = `translateX(-50%) translateY(${window.scrollY * 0.2}px)`;
+});
+
+// ── 3D CAKE SPHERE mouse follow ──
+const cake3d = document.getElementById('cake3d');
+const sphere = document.getElementById('cakeSphere');
+if (cake3d && sphere) {
+  document.addEventListener('mousemove', e => {
+    const r = cake3d.getBoundingClientRect();
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    const dist = Math.sqrt((e.clientX - cx) ** 2 + (e.clientY - cy) ** 2);
+    if (dist < 400) {
+      const rx = (e.clientY - cy) / 30;
+      const ry = -(e.clientX - cx) / 30;
+      sphere.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+    }
+  });
+}
+
+// ── CAROUSEL DRAG SCROLL ──
+const track = document.getElementById('carouselTrack');
+if (track) {
+  let isDown = false, startX, scrollLeft;
+  track.addEventListener('mousedown', e => {
+    isDown = true; track.style.cursor = 'grabbing';
+    startX = e.pageX - track.offsetLeft;
+    scrollLeft = track.scrollLeft;
+  });
+  track.addEventListener('mouseleave', () => { isDown = false; track.style.cursor = 'grab'; });
+  track.addEventListener('mouseup', () => { isDown = false; track.style.cursor = 'grab'; });
+  track.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - track.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    track.scrollLeft = scrollLeft - walk;
+  });
+  // 3D tilt on carousel cards
+  track.querySelectorAll('.caro-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const cx = r.left + r.width/2, cy = r.top + r.height/2;
+      const rx2 = (e.clientY - cy)/18, ry2 = -(e.clientX - cx)/18;
+      card.style.transform = `rotateX(${rx2}deg) rotateY(${ry2}deg) translateY(-10px)`;
+      card.style.boxShadow = `${-ry2*2}px ${rx2*2}px 40px rgba(19,8,4,.16), 0 0 0 1px rgba(201,152,58,.2)`;
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform=''; card.style.boxShadow=''; });
+  });
+}
+
+// ── FAQ ACCORDION ──
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>

@@ -39,7 +39,6 @@ body {
   position:fixed; top:0; left:0; z-index:9999;
   pointer-events:none;
   mix-blend-mode:difference;
-  will-change:transform;
 }
 #cursor-dot {
   width:8px; height:8px; background:#fff;
@@ -60,12 +59,7 @@ body.hovering #cursor-dot { width:12px; height:12px; }
 body.hovering #cursor-ring { width:56px; height:56px; border-color:var(--gold2); }
 
 /* ── FLOATING PARTICLES ── */
-#particles { position:fixed; inset:0; z-index:0; pointer-events:none; will-change:transform; }
-
-/* ── PERFORMANCE: gpu layers for animated elements ── */
-.hero-bg-text, .hero-glow, .cake-sphere, .price-anchor {
-  will-change: transform;
-}
+#particles { position:fixed; inset:0; z-index:0; pointer-events:none; }
 
 /* ── NAV ── */
 nav {
@@ -77,7 +71,6 @@ nav {
 nav.solid {
   background:rgba(19,8,4,0.92);
   backdrop-filter:blur(16px);
-  -webkit-backdrop-filter:blur(16px);
   border-bottom:1px solid rgba(255,255,255,0.06);
   padding:14px 60px;
 }
@@ -110,42 +103,6 @@ nav.solid {
   box-shadow:0 4px 20px rgba(201,152,58,.3);
 }
 .nav-cta:hover { transform:translateY(-2px); box-shadow:0 8px 32px rgba(201,152,58,.45); }
-
-/* ── MOBILE MENU TOGGLE ── */
-.nav-hamburger {
-  display:none;
-  flex-direction:column; gap:5px; cursor:none;
-  background:none; border:none; padding:4px;
-}
-.nav-hamburger span {
-  display:block; width:24px; height:2px;
-  background:#fff; border-radius:2px;
-  transition:all .3s ease;
-}
-.nav-hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
-.nav-hamburger.open span:nth-child(2) { opacity:0; }
-.nav-hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
-
-/* Mobile nav dropdown */
-.nav-mobile-menu {
-  display:none;
-  position:fixed; top:0; left:0; right:0; bottom:0;
-  background:rgba(19,8,4,0.97);
-  backdrop-filter:blur(20px);
-  z-index:400;
-  flex-direction:column; align-items:center; justify-content:center;
-  gap:32px;
-  opacity:0; pointer-events:none;
-  transition:opacity .3s ease;
-}
-.nav-mobile-menu.open { opacity:1; pointer-events:all; }
-.nav-mobile-menu a {
-  font-family:'Playfair Display',serif;
-  font-size:2rem; font-weight:700; color:#fff;
-  text-decoration:none; letter-spacing:.04em;
-  transition:color .2s;
-}
-.nav-mobile-menu a:hover { color:var(--gold2); }
 
 /* ── HERO ── */
 .hero {
@@ -319,7 +276,6 @@ nav.solid {
   border:1px solid rgba(255,255,255,.1);
   border-radius:22px; padding:28px 26px;
   backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
   transition:transform .3s ease, box-shadow .3s ease;
   transform-style:preserve-3d;
 }
@@ -365,7 +321,6 @@ nav.solid {
   display:flex; gap:0;
   animation:marquee 30s linear infinite;
   width:max-content;
-  will-change:transform;
 }
 .marquee-track:hover { animation-play-state:paused; }
 @keyframes marquee { to{transform:translateX(-50%)} }
@@ -430,10 +385,11 @@ nav.solid {
   display:flex; align-items:center; gap:16px;
   box-shadow:0 2px 16px rgba(19,8,4,.05);
   transition:all .3s ease;
+  transform-style:preserve-3d;
   cursor:none;
 }
 .bake-card:hover {
-  transform:translateY(-4px) translateX(4px);
+  transform:translateY(-4px) translateX(4px) rotateY(-2deg);
   box-shadow:0 16px 40px rgba(19,8,4,.12);
   border-color:rgba(201,152,58,.25);
 }
@@ -482,9 +438,10 @@ nav.solid {
   border-radius:20px; overflow:hidden; height:210px; position:relative;
   box-shadow:0 8px 32px rgba(0,0,0,.4);
   transition:transform .4s ease;
+  transform-style:preserve-3d;
 }
 .benefit-tile:nth-child(1) { margin-top:28px; }
-.benefit-tile:hover { transform:scale(1.03); }
+.benefit-tile:hover { transform:scale(1.03) rotateX(3deg) rotateY(-3deg); }
 .benefit-tile img { width:100%; height:100%; object-fit:cover; transition:transform .5s; }
 .benefit-tile:hover img { transform:scale(1.06); }
 .tile-label {
@@ -505,12 +462,13 @@ nav.solid {
   border:1px solid rgba(255,255,255,.07);
   border-radius:22px; padding:32px 26px;
   transition:all .35s ease;
+  transform-style:preserve-3d;
   cursor:none;
 }
 .pillar-card:hover {
   background:rgba(201,152,58,.07);
   border-color:rgba(201,152,58,.2);
-  transform:translateY(-8px);
+  transform:translateY(-8px) rotateX(4deg);
   box-shadow:0 24px 60px rgba(0,0,0,.3), 0 0 0 1px rgba(201,152,58,.15);
 }
 .pillar-icon {
@@ -523,6 +481,8 @@ nav.solid {
 .pillar-card:hover .pillar-icon { transform:scale(1.12) rotateZ(10deg); }
 .pillar-card h4 { font-family:'Playfair Display',serif; font-size:1.08rem; color:#fff; font-weight:700; margin-bottom:10px; }
 .pillar-card p { font-size:.78rem; color:rgba(255,255,255,.4); line-height:1.7; }
+
+/* mcard and mini-card styles moved to image-reveal section above */
 
 /* ── MENU LAYOUT ── */
 .menu-section { background:var(--cream); }
@@ -614,6 +574,7 @@ nav.solid {
   border:1px solid rgba(19,8,4,.05);
   box-shadow:0 2px 14px rgba(19,8,4,.04);
   transition:all .35s ease;
+  transform-style:preserve-3d;
   cursor:none;
   position:relative; overflow:hidden;
   min-height:72px;
@@ -642,7 +603,7 @@ nav.solid {
 .mcard:hover strong { color:#fff; }
 .mcard:hover span { color:rgba(255,255,255,.65); }
 .mcard:hover {
-  transform:translateX(8px);
+  transform:translateX(8px) rotateY(-2deg);
   box-shadow:0 14px 40px rgba(19,8,4,.18);
   border-color:rgba(201,152,58,.3);
 }
@@ -653,6 +614,7 @@ nav.solid {
   border:1px solid rgba(19,8,4,.05);
   box-shadow:0 2px 12px rgba(19,8,4,.04);
   transition:all .35s ease;
+  transform-style:preserve-3d;
   cursor:none;
   position:relative; overflow:hidden;
 }
@@ -672,7 +634,7 @@ nav.solid {
 .mini-card:hover .mini-name { color:#fff; }
 .mini-card:hover .mini-sub { color:rgba(255,255,255,.65); }
 .mini-card:hover {
-  transform:translateY(-8px);
+  transform:translateY(-8px) rotateX(6deg);
   box-shadow:0 20px 48px rgba(19,8,4,.18);
   border-color:rgba(201,152,58,.2);
 }
@@ -686,6 +648,7 @@ nav.solid {
   position:relative; overflow:hidden;
   border:1px solid rgba(255,255,255,.06);
   transition:transform .4s ease, box-shadow .4s ease;
+  transform-style:preserve-3d;
   cursor:none;
 }
 .featured-img-wrap {
@@ -706,7 +669,7 @@ nav.solid {
 }
 .f-bottom { display:flex; flex-direction:column; }
 .featured-card:hover {
-  transform:translateY(-6px);
+  transform:rotateX(3deg) rotateY(-4deg) translateY(-6px);
   box-shadow:0 40px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(201,152,58,.2);
 }
 
@@ -793,10 +756,11 @@ nav.solid {
   border:1px solid rgba(19,8,4,.05);
   box-shadow:0 4px 20px rgba(19,8,4,.06);
   transition:transform .3s ease, box-shadow .3s ease;
+  transform-style:preserve-3d;
   cursor:none;
 }
 .caro-card:hover {
-  transform:translateY(-10px);
+  transform:translateY(-10px) rotateX(4deg) rotateY(-3deg);
   box-shadow:0 24px 60px rgba(19,8,4,.14), 0 0 0 1px rgba(201,152,58,.2);
 }
 .caro-emoji { font-size:3rem; display:block; margin-bottom:14px; transition:transform .3s; }
@@ -845,6 +809,7 @@ nav.solid {
   border-radius:22px; padding:32px 28px;
   box-shadow:0 8px 40px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.12);
   transition:all .35s ease;
+  transform-style:preserve-3d;
   cursor:none;
   position:relative; overflow:hidden;
 }
@@ -856,7 +821,7 @@ nav.solid {
 }
 .review-card:hover::before { transform:scaleX(1); }
 .review-card:hover {
-  transform:translateY(-8px);
+  transform:translateY(-8px) rotateX(3deg);
   box-shadow:0 32px 70px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.2);
   background:rgba(255,255,255,.1);
 }
@@ -914,12 +879,13 @@ nav.solid {
   border:1px solid rgba(255,255,255,.07);
   border-radius:20px; padding:28px 22px; text-align:center;
   transition:all .35s ease;
+  transform-style:preserve-3d;
   cursor:none;
 }
 .acard:hover {
   background:rgba(201,152,58,.07);
   border-color:rgba(201,152,58,.2);
-  transform:translateY(-6px);
+  transform:rotateX(5deg) rotateY(-5deg) translateY(-6px);
   box-shadow:0 20px 50px rgba(0,0,0,.4);
 }
 .acard .icon { font-size:2rem; display:block; margin-bottom:12px; transition:transform .3s; }
@@ -982,7 +948,7 @@ footer {
 .fcol ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
 .fcol a { font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none; transition:color .2s; }
 .fcol a:hover { color:var(--gold2); }
-.footer-bottom { display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(255,255,255,.05); padding-top:24px; flex-wrap:wrap; gap:12px; }
+.footer-bottom { display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(255,255,255,.05); padding-top:24px; }
 .footer-copy { font-size:.72rem; color:rgba(255,255,255,.2); }
 .footer-women { display:flex; align-items:center; gap:6px; font-size:.7rem; color:var(--gold); background:rgba(201,152,58,.08); border:1px solid rgba(201,152,58,.15); padding:6px 14px; border-radius:50px; }
 
@@ -994,6 +960,7 @@ footer {
 .reveal-right { opacity:0; transform:translateX(40px); transition:opacity .8s ease, transform .8s ease; }
 .reveal-right.up { opacity:1; transform:translateX(0); }
 
+/* delay helpers */
 .d1 { transition-delay:.1s; }
 .d2 { transition-delay:.2s; }
 .d3 { transition-delay:.3s; }
@@ -1080,106 +1047,25 @@ footer {
 }
 .btn-directions:hover { transform:translateY(-2px); box-shadow:0 10px 32px rgba(201,152,58,.5); }
 
-/* ══════════════════════════════════
-   MOBILE RESPONSIVE — IMPROVED
-══════════════════════════════════ */
 @media(max-width:960px) {
-  /* cursor off on touch */
-  body { cursor:auto; }
-  #cursor { display:none; }
-
-  /* Nav */
   nav { padding:16px 24px; }
   nav.solid { padding:12px 24px; }
   .nav-links { display:none; }
-  .nav-hamburger { display:flex; }
-  .nav-mobile-menu { display:flex; }
-
-  /* Hero */
-  .hero-inner {
-    grid-template-columns:1fr;
-    padding:100px 24px 60px;
-    text-align:center;
-    gap:24px;
-  }
+  .hero-inner { grid-template-columns:1fr; padding:110px 24px 60px; text-align:center; }
   .hero-left, .hero-right { display:none; }
-  .hero-center { width:100%; }
-  .cake-3d-wrap { width:240px; height:240px; }
-  .hero-h1 { font-size:clamp(2.4rem,9vw,4rem); }
-
-  /* Sections */
-  .section { padding:60px 24px; }
-  .faq-section, .about-section, .map-section { padding:60px 24px; }
-
-  /* Grids */
-  .bake-grid { grid-template-columns:1fr; }
-  .bake-visual { height:300px; }
-  .benefits-top { grid-template-columns:1fr; gap:32px; }
-  .benefits-tiles { grid-template-columns:1fr 1fr; }
-  .benefit-tile { height:160px; }
-  .benefit-tile:nth-child(1) { margin-top:0; }
-  .pillars { grid-template-columns:1fr; gap:14px; }
-  .reviews-grid { grid-template-columns:1fr; gap:14px; }
+  .cake-3d-wrap { width:260px; height:260px; }
+  .section { padding:70px 24px; }
+  .bake-grid, .benefits-top, .about-inner { grid-template-columns:1fr; }
+  .reviews-grid { grid-template-columns:1fr; }
   .menu-layout { grid-template-columns:1fr; }
-  .mini-row { grid-template-columns:repeat(2,1fr); gap:12px; }
-  .about-inner { grid-template-columns:1fr; gap:40px; }
-  .about-cards-grid { grid-template-columns:1fr 1fr; }
-  .faq-inner { grid-template-columns:1fr; gap:32px; }
-  .map-inner { grid-template-columns:1fr; gap:32px; }
-  .footer-grid { grid-template-columns:1fr 1fr; gap:28px; }
-
-  /* Trust strip */
-  .trust-strip { padding:32px 16px; flex-wrap:wrap; gap:0; }
-  .trust-item {
-    min-width:50%; border-right:none;
-    border-bottom:1px solid rgba(255,255,255,.06);
-    padding:20px 16px;
-  }
-  .trust-item:nth-child(odd) { border-right:1px solid rgba(255,255,255,.06); }
-  .trust-item:nth-last-child(-n+2) { border-bottom:none; }
-  .trust-num { font-size:2.2rem; }
-
-  /* Carousel */
-  .carousel-section { padding:60px 0 60px 24px; }
-  .carousel-head { padding-right:24px; }
-
-  /* Footer CTA */
-  .footer-cta { padding:70px 24px; }
-  .fcta-btns { flex-direction:column; align-items:center; }
-
-  /* Footer */
-  footer { padding:40px 24px 28px; }
-  .footer-grid { grid-template-columns:1fr; gap:28px; }
-
-  /* Float buttons */
+  .mini-row { grid-template-columns:repeat(2,1fr); }
+  .pillars { grid-template-columns:1fr; }
+  .footer-grid { grid-template-columns:1fr 1fr; }
+  .trust-strip { padding:40px 24px; flex-wrap:wrap; }
+  .trust-item { min-width:50%; border-right:none; border-bottom:1px solid rgba(255,255,255,.06); padding:20px; }
+  .faq-inner, .map-inner { grid-template-columns:1fr; }
+  .carousel-section { padding:70px 0 70px 24px; }
   .float-btns { bottom:20px; right:16px; }
-  .float-btn { width:46px; height:46px; font-size:1.1rem; }
-  .float-label { display:none; }
-
-  /* Eggless card */
-  .eggless-card { flex-direction:column; align-items:flex-start; gap:14px; padding:18px 20px; }
-  .eggless-cta { width:100%; text-align:center; justify-content:center; }
-
-  /* Menu modal */
-  .menu-modal-box { padding:28px 20px; }
-  .modal-actions { flex-direction:column; }
-  .modal-actions a { text-align:center; justify-content:center; }
-}
-
-@media(max-width:480px) {
-  .hero-h1 { font-size:clamp(2rem,8vw,3rem); }
-  .h2 { font-size:clamp(1.6rem,6vw,2.4rem); }
-  .mini-row { grid-template-columns:1fr 1fr; }
-  .about-cards-grid { grid-template-columns:1fr; }
-  .stat-row { grid-template-columns:1fr 1fr 1fr; }
-  .stat-box strong { font-size:1.3rem; }
-  .benefits-tiles { grid-template-columns:1fr; }
-  .benefit-tile { height:180px; }
-  .cake-3d-wrap { width:200px; height:200px; }
-  .info-pills { gap:6px; }
-  .footer-grid { grid-template-columns:1fr; }
-  .fcta-h { font-size:clamp(1.8rem,7vw,2.8rem); }
-  .trust-item { min-width:50%; }
 }
 </style>
 </head>
@@ -1193,16 +1079,6 @@ footer {
 
 <!-- PARTICLES -->
 <canvas id="particles"></canvas>
-
-<!-- MOBILE MENU -->
-<div class="nav-mobile-menu" id="mobileMenu">
-  <a href="#home" onclick="closeMobileMenu()">Home</a>
-  <a href="#menu" onclick="closeMobileMenu()">Menu</a>
-  <a href="#reviews" onclick="closeMobileMenu()">Reviews</a>
-  <a href="#about" onclick="closeMobileMenu()">About</a>
-  <a href="#faq" onclick="closeMobileMenu()">FAQ</a>
-  <a href="https://wa.me/918411951335?text=Hi%2C%20I%27d%20like%20to%20place%20an%20order%20from%20Eat-N-Treat%20%F0%9F%8E%82" target="_blank" style="color:var(--gold2)">Order Now 🎂</a>
-</div>
 
 <!-- FLOATING CALL / WA BUTTONS -->
 <div class="float-btns">
@@ -1226,11 +1102,10 @@ footer {
     <li><a href="#about">About</a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
-  <button class="nav-hamburger" id="hamburger" onclick="toggleMobileMenu()">
-    <span></span><span></span><span></span>
-  </button>
   <a href="https://wa.me/918411951335?text=Hi%2C%20I%27d%20like%20to%20place%20an%20order%20from%20Eat-N-Treat%20%F0%9F%8E%82" target="_blank" class="nav-cta">Order Now</a>
 </nav>
+
+
 
 <!-- HERO -->
 <section class="hero" id="home">
@@ -1334,7 +1209,7 @@ footer {
   <div class="container">
     <div class="bake-grid">
       <div class="bake-visual reveal-left">
-        <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=900&h=1100&fit=crop&q=85" alt="Our Bakes" loading="lazy">
+        <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=900&h=1100&fit=crop&q=85" alt="Our Bakes">
         <div class="price-anchor">
           <small>Starting From</small>
           <strong>₹350</strong>
@@ -1368,6 +1243,7 @@ footer {
             <div class="bake-text"><strong>Namkins & Savories</strong><span>Crispy, spiced, and perfectly snackable. Great for tea time.</span></div>
           </div>
         </div>
+        <!-- EGGLESS CARD ROW -->
         <div class="eggless-card reveal">
           <div class="eggless-card-left">
             <span class="eggless-icon">🥚</span>
@@ -1395,11 +1271,11 @@ footer {
       </div>
       <div class="benefits-tiles reveal-right">
         <div class="benefit-tile">
-          <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=500&h=420&fit=crop&q=85" alt="Natural Ingredients" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=500&h=420&fit=crop&q=85" alt="Natural Ingredients">
           <div class="tile-label">Natural Ingredients</div>
         </div>
         <div class="benefit-tile">
-          <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500&h=420&fit=crop&q=85" alt="Handcrafted Daily" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=500&h=420&fit=crop&q=85" alt="Handcrafted Daily">
           <div class="tile-label">Handcrafted Daily</div>
         </div>
       </div>
@@ -1434,31 +1310,53 @@ footer {
     </div>
     <div class="menu-layout">
       <div class="menu-stack">
+
         <div class="mcard reveal d1" data-img="https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=600&h=400&fit=crop&q=85">
           <div class="mcard-img-bg"></div>
-          <div class="mcard-content"><span class="mcard-emoji">🍓</span><div><strong>Strawberry Delight</strong><span>Fresh cream & seasonal strawberries</span></div></div>
+          <div class="mcard-content">
+            <span class="mcard-emoji">🍓</span>
+            <div><strong>Strawberry Delight</strong><span>Fresh cream & seasonal strawberries</span></div>
+          </div>
         </div>
+
         <div class="mcard reveal d2" data-img="https://images.unsplash.com/photo-1553279768-865429fa0078?w=600&h=400&fit=crop&q=85">
           <div class="mcard-img-bg"></div>
-          <div class="mcard-content"><span class="mcard-emoji">🍋</span><div><strong>Lemon Bliss Cake</strong><span>Zesty, light & utterly refreshing</span></div></div>
+          <div class="mcard-content">
+            <span class="mcard-emoji">🍋</span>
+            <div><strong>Lemon Bliss Cake</strong><span>Zesty, light & utterly refreshing</span></div>
+          </div>
         </div>
+
         <div class="mcard reveal d3" data-img="https://images.unsplash.com/photo-1621303837174-89787a7d4729?w=600&h=400&fit=crop&q=85">
           <div class="mcard-img-bg"></div>
-          <div class="mcard-content"><span class="mcard-emoji">🥭</span><div><strong>Mango Mousse Cake</strong><span>Alphonso mango — Konkan pride</span></div></div>
+          <div class="mcard-content">
+            <span class="mcard-emoji">🥭</span>
+            <div><strong>Mango Mousse Cake</strong><span>Alphonso mango — Konkan pride</span></div>
+          </div>
         </div>
+
         <div class="mcard reveal d4" data-img="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?w=600&h=400&fit=crop&q=85">
           <div class="mcard-img-bg"></div>
-          <div class="mcard-content"><span class="mcard-emoji">🍰</span><div><strong>Vanilla Cloud Cake</strong><span>Classic sponge, whipped cream</span></div></div>
+          <div class="mcard-content">
+            <span class="mcard-emoji">🍰</span>
+            <div><strong>Vanilla Cloud Cake</strong><span>Classic sponge, whipped cream</span></div>
+          </div>
         </div>
+
         <div class="mcard reveal d5" data-img="https://images.unsplash.com/photo-1606890737304-57a1ca8a5b62?w=600&h=400&fit=crop&q=85">
           <div class="mcard-img-bg"></div>
-          <div class="mcard-content"><span class="mcard-emoji">🍫</span><div><strong>Dark Chocolate Ganache</strong><span>Intense, velvety, deeply satisfying</span></div></div>
+          <div class="mcard-content">
+            <span class="mcard-emoji">🍫</span>
+            <div><strong>Dark Chocolate Ganache</strong><span>Intense, velvety, deeply satisfying</span></div>
+          </div>
         </div>
+
       </div>
 
+      <!-- FEATURED CARD — Black Forest with real image -->
       <div class="featured-card reveal-right" id="featCard">
         <div class="featured-img-wrap">
-          <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=700&h=420&fit=crop&q=85" alt="Black Forest Cake" loading="lazy">
+          <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=700&h=420&fit=crop&q=85" alt="Black Forest Cake">
           <div class="featured-img-overlay"></div>
         </div>
         <div class="featured-content">
@@ -1505,13 +1403,17 @@ footer {
 <div class="menu-modal" id="menuModal" onclick="closeMenuModal(event)">
   <div class="menu-modal-box">
     <button class="modal-close" onclick="closeMenuModal()">✕</button>
-    <span class="modal-tag">Full Menu</span>
-    <h3 class="modal-title">Eat-N-Treat <em>Menu Card</em></h3>
-    <p class="modal-sub">Our complete menu with seasonal specials, custom options & pricing.</p>
+    <div class="modal-header">
+      <span class="modal-tag">Full Menu</span>
+      <h3 class="modal-title">Eat-N-Treat <em>Menu Card</em></h3>
+      <p class="modal-sub">Our complete menu with seasonal specials, custom options & pricing.</p>
+    </div>
     <div class="modal-placeholder">
-      <span class="modal-placeholder-icon">📋</span>
-      <p>Menu card coming soon</p>
-      <span>The owner is preparing a full digital menu card. Check back shortly — or call us directly for today's availability and pricing.</span>
+      <div class="modal-placeholder-inner">
+        <span class="modal-placeholder-icon">📋</span>
+        <p>Menu card coming soon</p>
+        <span>The owner is preparing a full digital menu card. Check back shortly — or call us directly for today's availability and pricing.</span>
+      </div>
     </div>
     <div class="modal-actions">
       <a href="https://wa.me/918411951335?text=Hi%2C%20I%27d%20like%20to%20place%20an%20order%20from%20Eat-N-Treat%20%F0%9F%8E%82" target="_blank" class="btn-gold" style="font-size:.82rem">💬 WhatsApp for Menu</a>
@@ -1554,23 +1456,77 @@ footer {
 </section>
 
 <!-- MENU CAROUSEL -->
-<section class="carousel-section">
+<section class="carousel-section" id="menu">
   <div class="carousel-head reveal">
     <span class="tag tag-muted">Swipe to Explore</span>
     <h2 class="h2">Discover Our <em>Collections</em></h2>
-    <p class="sub-text">Drag or swipe to browse — hover for the full experience on desktop.</p>
+    <p class="sub-text">Drag or swipe to browse — hover for the full 3D experience on desktop.</p>
   </div>
   <div class="carousel-track-wrap">
     <div class="carousel-track" id="carouselTrack">
-      <div class="caro-card"><div class="caro-tag">Most Loved</div><span class="caro-emoji">🎂</span><div class="caro-name">Black Forest</div><div class="caro-desc">Dark chocolate, kirsch cream & whole cherries. Our signature cake.</div><div class="caro-price">From ₹599</div></div>
-      <div class="caro-card"><div class="caro-tag">Seasonal</div><span class="caro-emoji">🥭</span><div class="caro-name">Mango Mousse</div><div class="caro-desc">Alphonso mango mousse on a buttery sponge. Pure Konkan pride.</div><div class="caro-price">From ₹549</div></div>
-      <div class="caro-card"><div class="caro-tag">Classic</div><span class="caro-emoji">🍓</span><div class="caro-name">Strawberry Delight</div><div class="caro-desc">Fresh cream layered with seasonal strawberries — light and refreshing.</div><div class="caro-price">From ₹499</div></div>
-      <div class="caro-card"><div class="caro-tag">Eggless ✓</div><span class="caro-emoji">🍰</span><div class="caro-name">Vanilla Cloud</div><div class="caro-desc">Classic vanilla sponge, whipped cream frosting, eggless available.</div><div class="caro-price">From ₹450</div></div>
-      <div class="caro-card"><div class="caro-tag">Bestseller</div><span class="caro-emoji">🍫</span><div class="caro-name">Dark Ganache</div><div class="caro-desc">Intense dark chocolate ganache, rich, velvety, deeply satisfying.</div><div class="caro-price">From ₹550</div></div>
-      <div class="caro-card"><div class="caro-tag">Bites</div><span class="caro-emoji">🧁</span><div class="caro-name">Cupcakes</div><div class="caro-desc">Assorted flavours, topped with swirled buttercream. Perfect for gifting.</div><div class="caro-price">From ₹60 each</div></div>
-      <div class="caro-card"><div class="caro-tag">Tea-time</div><span class="caro-emoji">🍫</span><div class="caro-name">Fudgy Brownies</div><div class="caro-desc">Dense, gooey chocolate brownies — a square of pure comfort.</div><div class="caro-price">From ₹350 / box</div></div>
-      <div class="caro-card"><div class="caro-tag">New</div><span class="caro-emoji">🍋</span><div class="caro-name">Lemon Bliss</div><div class="caro-desc">Zesty lemon sponge with a tangy cream cheese frosting. Utterly refreshing.</div><div class="caro-price">From ₹480</div></div>
-      <div class="caro-card"><div class="caro-tag">Savoury</div><span class="caro-emoji">🍘</span><div class="caro-name">Namkins</div><div class="caro-desc">Crispy, spiced traditional bites. Great with chai.</div><div class="caro-price">From ₹120</div></div>
+      <div class="caro-card">
+        <div class="caro-tag">Most Loved</div>
+        <span class="caro-emoji">🎂</span>
+        <div class="caro-name">Black Forest</div>
+        <div class="caro-desc">Dark chocolate, kirsch cream & whole cherries. Our signature cake.</div>
+        <div class="caro-price">From ₹599</div>
+      </div>
+      <div class="caro-card">
+        <div class="caro-tag">Seasonal</div>
+        <span class="caro-emoji">🥭</span>
+        <div class="caro-name">Mango Mousse</div>
+        <div class="caro-desc">Alphonso mango mousse on a buttery sponge. Pure Konkan pride.</div>
+        <div class="caro-price">From ₹549</div>
+      </div>
+      <div class="caro-card">
+        <div class="caro-tag">Classic</div>
+        <span class="caro-emoji">🍓</span>
+        <div class="caro-name">Strawberry Delight</div>
+        <div class="caro-desc">Fresh cream layered with seasonal strawberries — light and refreshing.</div>
+        <div class="caro-price">From ₹499</div>
+      </div>
+      <div class="caro-card">
+        <div class="caro-tag">Eggless ✓</div>
+        <span class="caro-emoji">🍰</span>
+        <div class="caro-name">Vanilla Cloud</div>
+        <div class="caro-desc">Classic vanilla sponge, whipped cream frosting, eggless available.</div>
+        <div class="caro-price">From ₹450</div>
+      </div>
+      <div class="caro-card">
+        <div class="caro-tag">Bestseller</div>
+        <span class="caro-emoji">🍫</span>
+        <div class="caro-name">Dark Ganache</div>
+        <div class="caro-desc">Intense dark chocolate ganache, rich, velvety, deeply satisfying.</div>
+        <div class="caro-price">From ₹550</div>
+      </div>
+      <div class="caro-card">
+        <div class="caro-tag">Bites</div>
+        <span class="caro-emoji">🧁</span>
+        <div class="caro-name">Cupcakes</div>
+        <div class="caro-desc">Assorted flavours, topped with swirled buttercream. Perfect for gifting.</div>
+        <div class="caro-price">From ₹60 each</div>
+      </div>
+      <div class="caro-card">
+        <div class="caro-tag">Tea-time</div>
+        <span class="caro-emoji">🍫</span>
+        <div class="caro-name">Fudgy Brownies</div>
+        <div class="caro-desc">Dense, gooey chocolate brownies — a square of pure comfort.</div>
+        <div class="caro-price">From ₹350 / box</div>
+      </div>
+      <div class="caro-card">
+        <div class="caro-tag">New</div>
+        <span class="caro-emoji">🍋</span>
+        <div class="caro-name">Lemon Bliss</div>
+        <div class="caro-desc">Zesty lemon sponge with a tangy cream cheese frosting. Utterly refreshing.</div>
+        <div class="caro-price">From ₹480</div>
+      </div>
+      <div class="caro-card">
+        <div class="caro-tag">Savoury</div>
+        <span class="caro-emoji">🍘</span>
+        <div class="caro-name">Namkins</div>
+        <div class="caro-desc">Crispy, spiced traditional bites. Great with chai.</div>
+        <div class="caro-price">From ₹120</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1624,24 +1580,54 @@ footer {
       </div>
       <div class="faq-list reveal-right">
         <div class="faq-item open">
-          <button class="faq-q" onclick="toggleFaq(this)">How much advance notice do you need for a custom cake?<span class="faq-arrow">▾</span></button>
-          <div class="faq-a"><p>For standard cakes, we typically need <strong>24–48 hours</strong> advance notice. For multi-tier or heavily customised cakes, please order at least 3–4 days ahead to ensure the best results.</p><span class="faq-highlight">⏰ 48 hrs for custom tiers</span></div>
+          <button class="faq-q" onclick="toggleFaq(this)">
+            How much advance notice do you need for a custom cake?
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a">
+            <p>For standard cakes, we typically need <strong>24–48 hours</strong> advance notice. For multi-tier or heavily customised cakes, please order at least 3–4 days ahead to ensure the best results.</p>
+            <span class="faq-highlight">⏰ 48 hrs for custom tiers</span>
+          </div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">Do you offer 100% eggless cakes?<span class="faq-arrow">▾</span></button>
-          <div class="faq-a"><p>Yes! Every cake on our menu can be made fully eggless on request — with no compromise on taste or texture. Just mention it when you call or WhatsApp your order.</p><span class="faq-highlight">🥚 100% Eggless — just ask!</span></div>
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Do you offer 100% eggless cakes?
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a">
+            <p>Yes! Every cake on our menu can be made fully eggless on request — with no compromise on taste or texture. Just mention it when you call or WhatsApp your order.</p>
+            <span class="faq-highlight">🥚 100% Eggless — just ask!</span>
+          </div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">Do you deliver in Ratnagiri? What areas?<span class="faq-arrow">▾</span></button>
-          <div class="faq-a"><p>We offer local delivery across Ratnagiri, including Ganpatipule, Varavade, and surrounding areas. We also deliver directly to hotels for surprise setups. Call us to confirm your area.</p><span class="faq-highlight">🚗 Ratnagiri · Ganpatipule · Hotel delivery</span></div>
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Do you deliver in Ratnagiri? What areas?
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a">
+            <p>We offer local delivery across Ratnagiri, including Ganpatipule, Varavade, and surrounding areas. We also deliver directly to hotels for surprise setups. Call us to confirm your area.</p>
+            <span class="faq-highlight">🚗 Ratnagiri · Ganpatipule · Hotel delivery</span>
+          </div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">Can I customise the design and flavour?<span class="faq-arrow">▾</span></button>
-          <div class="faq-a"><p>Absolutely — custom designs are our speciality. Share your theme, colour palette, or reference photos and we'll bring your vision to life. Flavours, frosting, and toppings are all customisable.</p><span class="faq-highlight">🎨 Full custom design available</span></div>
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Can I customise the design and flavour?
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a">
+            <p>Absolutely — custom designs are our speciality. Share your theme, colour palette, or reference photos and we'll bring your vision to life. Flavours, frosting, and toppings are all customisable.</p>
+            <span class="faq-highlight">🎨 Full custom design available</span>
+          </div>
         </div>
         <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">Are your ingredients fresh and preservative-free?<span class="faq-arrow">▾</span></button>
-          <div class="faq-a"><p>Yes — every item is baked fresh daily with no artificial preservatives. We use locally sourced ingredients wherever possible and believe food made with real ingredients simply tastes better.</p><span class="faq-highlight">🌿 No preservatives · Fresh daily</span></div>
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Are your ingredients fresh and preservative-free?
+            <span class="faq-arrow">▾</span>
+          </button>
+          <div class="faq-a">
+            <p>Yes — every item is baked fresh daily with no artificial preservatives. We use locally sourced ingredients wherever possible and believe food made with real ingredients simply tastes better.</p>
+            <span class="faq-highlight">🌿 No preservatives · Fresh daily</span>
+          </div>
         </div>
       </div>
     </div>
@@ -1661,10 +1647,16 @@ footer {
           <div class="map-detail">🕘 Tuesday – Sunday · 9 AM to 8 PM</div>
           <div class="map-detail">🚗 Takeaway & local delivery available</div>
         </div>
-        <a href="https://www.google.com/maps/place/Eat-N-Treat+Cakes/@17.1948365,73.2430639,683m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3be9fd3f6aec1483:0xbafd911fce297607" target="_blank" class="btn-directions">🗺️ Get Directions</a>
+        <a href="https://www.google.com/maps/place/Eat-N-Treat+Cakes/@17.1948365,73.2430639,683m/data=!3m2!1e3!4b1!4m6!3m5!1s0x3be9fd3f6aec1483:0xbafd911fce297607" target="_blank" class="btn-directions">
+          🗺️ Get Directions
+        </a>
       </div>
       <div class="map-frame reveal-right">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d683m!2d73.2430639!3d17.1948365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be9fd3f6aec1483%3A0xbafd911fce297607!2sEat-N-Treat+Cakes!5e0!3m2!1sen!2sin!4v1700000000000" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d683m!2d73.2430639!3d17.1948365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be9fd3f6aec1483%3A0xbafd911fce297607!2sEat-N-Treat+Cakes!5e0!3m2!1sen!2sin!4v1700000000000"
+          allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
       </div>
     </div>
   </div>
@@ -1733,85 +1725,47 @@ footer {
 </footer>
 
 <script>
-// ══════════════════════════════════
-// PERFORMANCE-OPTIMIZED JS
-// ══════════════════════════════════
-
-// ── CUSTOM CURSOR (optimized — only runs when mouse moves) ──
+// ── CUSTOM CURSOR ──
 const dot = document.getElementById('cursor-dot');
 const ring = document.getElementById('cursor-ring');
-let mx = 0, my = 0, rx = 0, ry = 0, cursorMoved = false, cursorRAF = false;
-
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY; cursorMoved = true;
-}, { passive: true });
-
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
 function animCursor() {
-  if (cursorMoved) {
-    dot.style.left = mx + 'px'; dot.style.top = my + 'px';
-    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
-    cursorMoved = false;
-  }
+  dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
   requestAnimationFrame(animCursor);
 }
 animCursor();
-
 document.querySelectorAll('a,button,.bake-card,.mcard,.mini-card,.review-card,.acard,.pillar-card,.hero-thumb,.trust-item,.stat-box,.about-detail').forEach(el => {
   el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
   el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
 });
 
-// ── MOBILE MENU ──
-function toggleMobileMenu() {
-  const menu = document.getElementById('mobileMenu');
-  const hamburger = document.getElementById('hamburger');
-  const isOpen = menu.classList.contains('open');
-  menu.classList.toggle('open', !isOpen);
-  hamburger.classList.toggle('open', !isOpen);
-  document.body.style.overflow = isOpen ? '' : 'hidden';
-}
-function closeMobileMenu() {
-  document.getElementById('mobileMenu').classList.remove('open');
-  document.getElementById('hamburger').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-// ── NAV SCROLL (optimized with ticking) ──
+// ── NAV SCROLL ──
 const nav = document.getElementById('nav');
-let navTicking = false;
-window.addEventListener('scroll', () => {
-  if (!navTicking) {
-    requestAnimationFrame(() => {
-      nav.classList.toggle('solid', window.scrollY > 60);
-      navTicking = false;
-    });
-    navTicking = true;
-  }
-}, { passive: true });
+window.addEventListener('scroll', () => nav.classList.toggle('solid', window.scrollY > 60));
 
-// ── PARTICLES (reduced count, optimized loop) ──
+// ── PARTICLES ──
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
-let W, H, parts = [];
-
+let W, H, particles = [];
 function resizeCanvas() {
   W = canvas.width = window.innerWidth;
   H = canvas.height = window.innerHeight;
 }
 resizeCanvas();
-window.addEventListener('resize', resizeCanvas, { passive: true });
-
+window.addEventListener('resize', resizeCanvas);
 class Particle {
   constructor() { this.reset(); }
   reset() {
     this.x = Math.random() * W;
     this.y = Math.random() * H;
-    this.r = Math.random() * 1.2 + 0.3;
-    this.vx = (Math.random() - 0.5) * 0.25;
-    this.vy = -Math.random() * 0.35 - 0.08;
-    this.alpha = Math.random() * 0.35 + 0.08;
-    this.life = Math.random() * 280 + 80;
+    this.r = Math.random() * 1.5 + 0.3;
+    this.vx = (Math.random() - 0.5) * 0.3;
+    this.vy = -Math.random() * 0.4 - 0.1;
+    this.alpha = Math.random() * 0.4 + 0.1;
+    this.life = Math.random() * 300 + 100;
     this.age = 0;
   }
   update() {
@@ -1825,21 +1779,10 @@ class Particle {
     ctx.fill();
   }
 }
-
-// Reduced from 80 → 50 particles for performance
-for (let i = 0; i < 50; i++) parts.push(new Particle());
-
-// Pause particles when page not visible
-let particlesActive = true;
-document.addEventListener('visibilitychange', () => {
-  particlesActive = !document.hidden;
-});
-
+for (let i = 0; i < 80; i++) particles.push(new Particle());
 function animParticles() {
-  if (particlesActive) {
-    ctx.clearRect(0, 0, W, H);
-    parts.forEach(p => { p.update(); p.draw(); });
-  }
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach(p => { p.update(); p.draw(); });
   requestAnimationFrame(animParticles);
 }
 animParticles();
@@ -1850,20 +1793,31 @@ if (heroCard) {
   heroCard.addEventListener('mousemove', e => {
     const r = heroCard.getBoundingClientRect();
     const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
-    const rotX = (e.clientY - cy) / 16, rotY = -(e.clientX - cx) / 16;
-    heroCard.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg) translateY(-4px)`;
-    heroCard.style.boxShadow = `${-rotY * 2}px ${rotX * 2}px 50px rgba(0,0,0,.4), 0 0 0 1px rgba(201,152,58,.2)`;
+    const rx = (e.clientY - cy) / 16, ry = -(e.clientX - cx) / 16;
+    heroCard.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+    heroCard.style.boxShadow = `${-ry * 2}px ${rx * 2}px 50px rgba(0,0,0,.4), 0 0 0 1px rgba(201,152,58,.2)`;
   });
   heroCard.addEventListener('mouseleave', () => {
     heroCard.style.transform = ''; heroCard.style.boxShadow = '';
   });
 }
 
+// ── 3D TILT GENERIC ──
+document.querySelectorAll('.pillar-card,.review-card,.acard,.mini-card,.featured-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+    const rx = (e.clientY - cy) / 20, ry = -(e.clientX - cx) / 20;
+    card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px)`;
+  });
+  card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+});
+
 // ── SCROLL REVEAL ──
-const revealObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('up'); revealObserver.unobserve(e.target); } });
-}, { threshold: 0.08 });
-document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => revealObserver.observe(el));
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('up'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal,.reveal-left,.reveal-right').forEach(el => observer.observe(el));
 
 // ── COUNT UP ──
 const countObserver = new IntersectionObserver(entries => {
@@ -1879,29 +1833,20 @@ const countObserver = new IntersectionObserver(entries => {
     const timer = setInterval(() => {
       start = Math.min(start + step, target);
       el.textContent = Math.floor(start) + (dec && start >= target ? dec : '') + (suffix && start >= target ? suffix : '');
-      if (start >= target) clearInterval(timer);
+      if (start >= target) { clearInterval(timer); }
     }, 30);
     countObserver.unobserve(el);
   });
 }, { threshold: 0.5 });
 document.querySelectorAll('.trust-num, .count-up').forEach(el => countObserver.observe(el));
 
-// ── PARALLAX (scroll-optimized with requestAnimationFrame ticking) ──
-const heroBgTxt = document.querySelector('.hero-bg-text');
-const heroGlow = document.querySelector('.hero-glow');
-let scrollTicking = false;
-
+// ── PARALLAX HERO BG TEXT ──
 window.addEventListener('scroll', () => {
-  if (!scrollTicking) {
-    requestAnimationFrame(() => {
-      const sy = window.scrollY;
-      if (heroBgTxt) heroBgTxt.style.transform = `translateY(${sy * 0.35}px)`;
-      if (heroGlow) heroGlow.style.transform = `translateX(-50%) translateY(${sy * 0.2}px)`;
-      scrollTicking = false;
-    });
-    scrollTicking = true;
-  }
-}, { passive: true });
+  const txt = document.querySelector('.hero-bg-text');
+  if (txt) txt.style.transform = `translateY(${window.scrollY * 0.35}px)`;
+  const glow = document.querySelector('.hero-glow');
+  if (glow) glow.style.transform = `translateX(-50%) translateY(${window.scrollY * 0.2}px)`;
+});
 
 // ── INJECT BG IMAGES INTO MCARDS & MINI CARDS ──
 document.querySelectorAll('.mcard[data-img]').forEach(card => {
@@ -1924,11 +1869,9 @@ function closeMenuModal(e) {
     document.body.style.overflow = '';
   }
 }
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeMenuModal({ target: document.getElementById('menuModal') });
-});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenuModal({ target: document.getElementById('menuModal') }); });
 
-// ── 3D CAKE SPHERE mouse follow (throttled) ──
+// ── 3D CAKE SPHERE mouse follow ──
 const cake3d = document.getElementById('cake3d');
 const sphere = document.getElementById('cakeSphere');
 if (cake3d && sphere) {
@@ -1937,9 +1880,11 @@ if (cake3d && sphere) {
     const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
     const dist = Math.sqrt((e.clientX - cx) ** 2 + (e.clientY - cy) ** 2);
     if (dist < 400) {
-      sphere.style.transform = `rotateX(${(e.clientY - cy) / 30}deg) rotateY(${-(e.clientX - cx) / 30}deg)`;
+      const rx = (e.clientY - cy) / 30;
+      const ry = -(e.clientX - cx) / 30;
+      sphere.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
     }
-  }, { passive: true });
+  });
 }
 
 // ── CAROUSEL DRAG SCROLL ──
@@ -1956,8 +1901,11 @@ if (track) {
   track.addEventListener('mousemove', e => {
     if (!isDown) return;
     e.preventDefault();
-    track.scrollLeft = scrollLeft - (e.pageX - track.offsetLeft - startX) * 1.5;
+    const x = e.pageX - track.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    track.scrollLeft = scrollLeft - walk;
   });
+  // 3D tilt on carousel cards
   track.querySelectorAll('.caro-card').forEach(card => {
     card.addEventListener('mousemove', e => {
       const r = card.getBoundingClientRect();
